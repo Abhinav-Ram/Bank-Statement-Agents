@@ -28,6 +28,8 @@ transactions. Full plan: `PLAN.md`.
 
 ## Commands
 ```bash
+./start.sh                                   # ONE command: tools check, .env, db+web (Docker), uv sync, embed model, examples, API
+./stop.sh                                    # stop API + containers (data kept)
 docker compose up -d                         # db :5433 (host), web :5173 (proxies to the native API)
 cd backend && uv run uvicorn app.main:app --port 8080   # API runs NATIVELY (Apple Vision OCR)
 curl localhost:8080/health                   # db + llm status
@@ -121,7 +123,8 @@ cd backend && uv run python scripts/make_examples.py   # one-click example state
 - Phase 4 `backend/app/api/`: `jobs.py` (Runtime: psycopg pool + PostgresSaver + compiled graphs +
   1 worker thread; `start`/`resume`/`run` stream graph updates into `ingest_events`; `recover` at
   startup), `statements.py` (upload, list, detail, SSE events with Last-Event-ID replay, review,
-  resume, transactions, page PNG, insights, delete, PATCH category), `chat.py` (POST /chat SSE:
+  resume, transactions, page PNG, insights, delete, PATCH category: applies to every row of the
+  merchant whose direction fits, except rows corrected one by one; cache remembers it), `chat.py` (POST /chat SSE:
   thread → route → act → answer; GET /evals). Tables `jobs`, `ingest_events`. Spec `docs/phase4.md`.
 - `backend/app/schemas/taxonomy.py` — fixed category taxonomy + anomaly types.
 - `frontend/` (Phase 5): React 18 + Vite + TS, Tailwind v4 + DaisyUI 5 (themes corporate/dark),
@@ -159,4 +162,4 @@ One phase at a time: short spec → guardrail tests → implementation → user 
 
 ## Phase status
 - [x] Phase 0 — scaffold, compose, LLM check, CLAUDE.md, synthetic generator + AgamiAI data, latency baseline
-- [x] 1a digital parse/extract/validate + bake-off (`docs/phase1a.md`, results `docs/phase1a_results.md`) · [x] 1b OCR (`docs/phase1b.md`, results `docs/phase1b_results.md`; bake-off deferred) · [x] 2 persist, review, categorize, anomalies, summary (`docs/phase2.md`, results + review testing `docs/phase2_results.md`) · [x] 3 retrieval + query graph (`docs/phase3.md`, results `docs/phase3_results.md`) · [x] 4 API (`docs/phase4.md`, results `docs/phase4_results.md`) · [x] 4b LLM-inclusive eval (`evals/suite_4b.py`, results `docs/phase4b_results.md`) · [x] 5 UI (`docs/phase5.md`, results `docs/phase5_results.md`) · [ ] 6
+- [x] 1a digital parse/extract/validate + bake-off (`docs/phase1a.md`, results `docs/phase1a_results.md`) · [x] 1b OCR (`docs/phase1b.md`, results `docs/phase1b_results.md`; bake-off deferred) · [x] 2 persist, review, categorize, anomalies, summary (`docs/phase2.md`, results + review testing `docs/phase2_results.md`) · [x] 3 retrieval + query graph (`docs/phase3.md`, results `docs/phase3_results.md`) · [x] 4 API (`docs/phase4.md`, results `docs/phase4_results.md`) · [x] 4b LLM-inclusive eval (`evals/suite_4b.py`, results `docs/phase4b_results.md`) · [x] 5 UI (`docs/phase5.md`, results `docs/phase5_results.md`) · [~] 6 one-command setup (`start.sh`/`stop.sh`) + README done; final report/demo extras optional

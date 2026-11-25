@@ -34,3 +34,5 @@ data/review/
 data/review_cases/
 data/qa/
 data/uploads/
+data/logs/
+data/api.pid

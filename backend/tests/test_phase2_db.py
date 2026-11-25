@@ -231,6 +231,39 @@ def test_batch_mode_stores_the_review_for_later(env):
     assert r["reconciliation"]["review"]["issues"][0]["kind"] == "closing_balance"
 
 
+def test_category_correction_covers_the_merchant_but_respects_direction_and_manual_fixes(env):
+    from app.db import connect
+    from app.db.repo import correct_category
+    from app.graphs.ingestion import build_graph, start_ingestion
+
+    tr = SYN[0]
+    out = start_ingestion(build_graph(), str(tr.pdf), review_mode="skip",
+                          meta_override=truth_meta(tr))
+    with connect() as conn:
+        rows = conn.execute("SELECT id, merchant, debit, credit FROM transactions "
+                            "WHERE statement_id = %s ORDER BY idx", (out["stmt_id"],)).fetchall()
+        by_m: dict = {}
+        for r in rows:
+            if r["merchant"] and r["debit"]:
+                by_m.setdefault(r["merchant"], []).append(r["id"])
+        merchant, ids = max(by_m.items(), key=lambda kv: len(kv[1]))
+        assert len(ids) >= 2
+        # the person fixes one row by hand first; a later merchant-wide fix must not undo it
+        correct_category(conn, ids[-1], "Health")
+        res = correct_category(conn, ids[0], "Shopping")
+        cats = {r["id"]: r["name"] for r in conn.execute(
+            "SELECT t.id, c.name FROM transactions t JOIN categories c ON c.id = t.category_id "
+            "WHERE t.id = ANY(%s)", (ids,))}
+        assert res["rows_updated"] == len(ids) - 1
+        assert cats[ids[-1]] == "Health" and all(cats[i] == "Shopping" for i in ids[:-1])
+        # an expense category never lands on the merchant's credits
+        credit_ids = [r["id"] for r in rows if r["merchant"] == merchant and r["credit"]]
+        if credit_ids:
+            assert not conn.execute("SELECT 1 FROM transactions t JOIN categories c ON "
+                                    "c.id = t.category_id WHERE t.id = ANY(%s) AND "
+                                    "c.name = 'Shopping'", (credit_ids,)).fetchone()
+
+
 def test_corrections_are_applied_and_revalidated():
     from app.graphs.ingestion import apply_corrections
     from app.schemas.statement import Txn

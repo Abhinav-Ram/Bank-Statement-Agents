@@ -202,15 +202,33 @@ def cache_put(conn: psycopg.Connection, entries: list[tuple[str, str, float, str
     conn.commit()
 
 
-def correct_category(conn: psycopg.Connection, txn_id: int, category: str) -> None:
-    """User correction (PATCH /transactions/{id} in Phase 4): updates the row and the cache."""
+def correct_category(conn: psycopg.Connection, txn_id: int, category: str) -> dict:
+    """User correction (PATCH /transactions/{id}). Sets the row, then every other row of the same
+    merchant whose direction fits the category (income → credits, expense → debits), in every
+    statement, except rows the person corrected one by one. The merchant cache remembers it for
+    future statements (a user entry is never overwritten by automatic sources).
+    Returns {merchant, rows_updated, statements} — statements to re-index."""
+    from app.schemas.taxonomy import HEAD_OF
+
     cid = category_ids(conn)[category]
     row = conn.execute("UPDATE transactions SET category_id = %s, category_confidence = 1.0, "
                        "category_source = 'user', user_corrected = true WHERE id = %s "
-                       "RETURNING merchant", (cid, txn_id)).fetchone()
+                       "RETURNING merchant, statement_id", (cid, txn_id)).fetchone()
+    if not row:
+        conn.commit()
+        return {"merchant": None, "rows_updated": 0, "statements": []}
+    side = "credit" if HEAD_OF[category] == "Income" else "debit"
+    others = conn.execute(
+        f"""UPDATE transactions SET category_id = %s, category_confidence = 1.0,
+                   category_source = 'user'
+            WHERE merchant = %s AND id <> %s AND NOT user_corrected AND {side} > 0
+            RETURNING statement_id""", (cid, row["merchant"], txn_id)).fetchall() \
+        if row["merchant"] else []
     conn.commit()
-    if row and row["merchant"]:
+    if row["merchant"]:
         cache_put(conn, [(row["merchant"], category, 1.0, "user")])
+    stmts = sorted({row["statement_id"], *(r["statement_id"] for r in others)})
+    return {"merchant": row["merchant"], "rows_updated": 1 + len(others), "statements": stmts}
 
 
 # ----------------------------------------------------------------- history / anomalies / summary

@@ -1,0 +1,62 @@
+{
+ "mode": "parser",
+ "model": null,
+ "ocr_engine": "vision",
+ "provider": "groq",
+ "aggregate": {
+  "agami_scanned_t1": {
+   "statements": 1,
+   "rows_truth": 162,
+   "rows_pred": 162,
+   "row_recall": 1.0,
+   "row_precision": 1.0,
+   "row_exact": 0.7654320987654321,
+   "field_acc": {
+    "date": 1.0,
+    "description": 0.7654320987654321,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 1.0
+   },
+   "statements_all_rows_exact": 0.0,
+   "reconciliation_pass": 0.0,
+   "truth_reconciliation_pass": 0.0,
+   "ambiguous_rows": 0,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 4.213266458999897,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0
+  }
+ },
+ "statements": [
+  {
+   "dataset": "agami_scanned_t1",
+   "id": "t1_00001",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 124,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.7654320987654321,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 4.213266458999897,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  }
+ ]
+}

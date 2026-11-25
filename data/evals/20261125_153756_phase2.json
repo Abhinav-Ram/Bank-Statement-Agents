@@ -1,0 +1,23 @@
+{
+ "llm": false,
+ "statements": 12,
+ "category_accuracy": 0.9904,
+ "transactions": 731,
+ "category_sources": {
+  "rule": 731
+ },
+ "top_confusions": [
+  {
+   "truth": "Transfers In",
+   "pred": "Refunds",
+   "n": 7
+  }
+ ],
+ "anomaly": {
+  "precision": 0.9825,
+  "missed_seeded": 0,
+  "missed_by_type": {},
+  "false_flags": 1
+ },
+ "llm_usage": null
+}

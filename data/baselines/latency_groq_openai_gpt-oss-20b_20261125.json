@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-11-25T10:20:15",
+  "model": "openai/gpt-oss-20b",
+  "provider": "groq",
+  "extra_body": {
+    "reasoning_effort": "low"
+  },
+  "machine": {
+    "chip": "Apple M3",
+    "ram_gb": 8,
+    "macos": "15.1.1"
+  },
+  "first_call_s": 0.24,
+  "ttft_s_median": 0.31,
+  "decode_tok_per_s_median": 1429.884,
+  "total_s_median": 0.452,
+  "extract_6_rows": {
+    "seconds": 0.86,
+    "rows": 6,
+    "balances_exact": 6
+  },
+  "embeddings": null
+}

@@ -1,0 +1,860 @@
+{
+ "mode": "pipeline",
+ "model": "qwen/qwen3.8-27b",
+ "ocr_engine": "vision",
+ "provider": "groq",
+ "aggregate": {
+  "synthetic_scan": {
+   "statements": 5,
+   "rows_truth": 293,
+   "rows_pred": 288,
+   "row_recall": 0.931740614334471,
+   "row_precision": 0.9479166666666666,
+   "row_exact": 0.6040955631399317,
+   "field_acc": {
+    "date": 1.0,
+    "description": 0.6703296703296703,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 0.9706959706959707
+   },
+   "statements_all_rows_exact": 0.0,
+   "reconciliation_pass": 0.2,
+   "truth_reconciliation_pass": 1.0,
+   "ambiguous_rows": 36,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 0.964098441600072,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0,
+   "meta_acc": {
+    "opening": 1.0,
+    "closing": 1.0,
+    "period": 1.0,
+    "account_last4": 1.0,
+    "bank": 1.0
+   }
+  },
+  "agami_scanned_t1": {
+   "statements": 5,
+   "rows_truth": 807,
+   "rows_pred": 807,
+   "row_recall": 1.0,
+   "row_precision": 1.0,
+   "row_exact": 0.8798017348203222,
+   "field_acc": {
+    "date": 1.0,
+    "description": 0.8798017348203222,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 1.0
+   },
+   "statements_all_rows_exact": 0.0,
+   "reconciliation_pass": 0.0,
+   "truth_reconciliation_pass": 0.0,
+   "ambiguous_rows": 1,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 7.97061459180004,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0,
+   "meta_acc": {
+    "opening": 1.0,
+    "closing": 1.0,
+    "period": 1.0,
+    "account_last4": 1.0,
+    "bank": 1.0
+   }
+  },
+  "agami_scanned_t2": {
+   "statements": 5,
+   "rows_truth": 803,
+   "rows_pred": 803,
+   "row_recall": 0.9975093399750934,
+   "row_precision": 0.9975093399750934,
+   "row_exact": 0.975093399750934,
+   "field_acc": {
+    "date": 1.0,
+    "description": 0.978776529338327,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 0.9987515605493134
+   },
+   "statements_all_rows_exact": 0.4,
+   "reconciliation_pass": 0.0,
+   "truth_reconciliation_pass": 0.0,
+   "ambiguous_rows": 3,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 9.18045899999961,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0,
+   "meta_acc": {
+    "opening": 1.0,
+    "closing": 1.0,
+    "period": 1.0,
+    "account_last4": 1.0,
+    "bank": 1.0
+   }
+  }
+ },
+ "statements": [
+  {
+   "dataset": "synthetic_scan",
+   "id": "coral_01",
+   "score": {
+    "n_truth": 37,
+    "n_pred": 37,
+    "matched": 37,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 26,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.7027027027027027,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 1.164216375000251,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 0,
+   "retry_events": []
+  },
+  {
+   "dataset": "synthetic_scan",
+   "id": "coral_02",
+   "score": {
+    "n_truth": 57,
+    "n_pred": 57,
+    "matched": 54,
+    "row_recall": 0.9473684210526315,
+    "row_precision": 0.9473684210526315,
+    "exact_rows": 41,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.7962962962962963,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 0.9629629629629629
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.6839358329998504,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 6,
+   "breaks": 3,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 2,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 10,
+     "rows": 3,
+     "attempt": 1,
+     "ocr_rows": 0,
+     "llm_rows": 3
+    },
+    {
+     "node": "retry",
+     "ms": 9,
+     "rows": 3,
+     "attempt": 2,
+     "ocr_rows": 0,
+     "llm_rows": 3
+    }
+   ]
+  },
+  {
+   "dataset": "synthetic_scan",
+   "id": "coral_03",
+   "score": {
+    "n_truth": 94,
+    "n_pred": 89,
+    "matched": 87,
+    "row_recall": 0.925531914893617,
+    "row_precision": 0.9775280898876404,
+    "exact_rows": 49,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.5977011494252874,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 0.9425287356321839
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 1.716620750000402,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 19,
+   "breaks": 6,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 2,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 807,
+     "rows": 6,
+     "attempt": 1,
+     "ocr_rows": 5,
+     "llm_rows": 1,
+     "ocr_fixed": 0,
+     "ocr_verified": 4,
+     "ocr_unresolved": 1,
+     "second_engine": 2
+    },
+    {
+     "node": "retry",
+     "ms": 10,
+     "rows": 1,
+     "attempt": 2,
+     "ocr_rows": 0,
+     "llm_rows": 1
+    }
+   ]
+  },
+  {
+   "dataset": "synthetic_scan",
+   "id": "northwind_01",
+   "score": {
+    "n_truth": 36,
+    "n_pred": 36,
+    "matched": 35,
+    "row_recall": 0.9722222222222222,
+    "row_precision": 0.9722222222222222,
+    "exact_rows": 20,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.5714285714285714,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.4040808329991705,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 0,
+   "retry_events": []
+  },
+  {
+   "dataset": "synthetic_scan",
+   "id": "northwind_02",
+   "score": {
+    "n_truth": 69,
+    "n_pred": 69,
+    "matched": 60,
+    "row_recall": 0.8695652173913043,
+    "row_precision": 0.8695652173913043,
+    "exact_rows": 41,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.7,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 0.9833333333333333
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.8516384170006859,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 10,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 2,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 100,
+     "rows": 9,
+     "attempt": 1,
+     "ocr_rows": 1,
+     "llm_rows": 8,
+     "ocr_fixed": 1,
+     "ocr_verified": 0,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    },
+    {
+     "node": "retry",
+     "ms": 10,
+     "rows": 8,
+     "attempt": 2,
+     "ocr_rows": 0,
+     "llm_rows": 8
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t1",
+   "id": "t1_00001",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 147,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9074074074074074,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 5.017372166999849,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 1783,
+     "rows": 20,
+     "attempt": 1,
+     "ocr_rows": 20,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 20,
+     "ocr_unresolved": 0,
+     "second_engine": 1
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t1",
+   "id": "t1_00002",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 142,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.8819875776397516,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 12.742590333999942,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 5742,
+     "rows": 19,
+     "attempt": 1,
+     "ocr_rows": 19,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 17,
+     "ocr_unresolved": 2,
+     "second_engine": 2
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t1",
+   "id": "t1_00003",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 133,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.8364779874213837,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 5.806171833000008,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 1592,
+     "rows": 10,
+     "attempt": 1,
+     "ocr_rows": 10,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 10,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t1",
+   "id": "t1_00004",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 134,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.864516129032258,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 6.5466477079999095,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 1978,
+     "rows": 10,
+     "attempt": 1,
+     "ocr_rows": 10,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 10,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t1",
+   "id": "t1_00005",
+   "score": {
+    "n_truth": 170,
+    "n_pred": 170,
+    "matched": 170,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 154,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9058823529411765,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 9.740290917000493,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 38,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 2,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 4819,
+     "rows": 38,
+     "attempt": 1,
+     "ocr_rows": 37,
+     "llm_rows": 1,
+     "ocr_fixed": 0,
+     "ocr_verified": 36,
+     "ocr_unresolved": 1,
+     "second_engine": 1
+    },
+    {
+     "node": "retry",
+     "ms": 10,
+     "rows": 1,
+     "attempt": 2,
+     "ocr_rows": 0,
+     "llm_rows": 1
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t2",
+   "id": "t2_00001",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9813664596273292,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 9.316678541999863,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 3107,
+     "rows": 16,
+     "attempt": 1,
+     "ocr_rows": 16,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 16,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t2",
+   "id": "t2_00002",
+   "score": {
+    "n_truth": 167,
+    "n_pred": 167,
+    "matched": 167,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 167,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 14.435398999999961,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 6568,
+     "rows": 30,
+     "attempt": 1,
+     "ocr_rows": 30,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 30,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t2",
+   "id": "t2_00003",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 161,
+    "row_recall": 0.9877300613496932,
+    "row_precision": 0.9877300613496932,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9937888198757764,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 0.9937888198757764
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 6.9104356249990815,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 3,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 2,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 2960,
+     "rows": 24,
+     "attempt": 1,
+     "ocr_rows": 22,
+     "llm_rows": 2,
+     "ocr_fixed": 0,
+     "ocr_verified": 20,
+     "ocr_unresolved": 2,
+     "second_engine": 2
+    },
+    {
+     "node": "retry",
+     "ms": 10,
+     "rows": 2,
+     "attempt": 2,
+     "ocr_rows": 0,
+     "llm_rows": 2
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t2",
+   "id": "t2_00004",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 6.250973124999291,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 1709,
+     "rows": 9,
+     "attempt": 1,
+     "ocr_rows": 9,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 9,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    }
+   ]
+  },
+  {
+   "dataset": "agami_scanned_t2",
+   "id": "t2_00005",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 143,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9166666666666666,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 8.988808707999851,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "attempts": 1,
+   "retry_events": [
+    {
+     "node": "retry",
+     "ms": 2775,
+     "rows": 9,
+     "attempt": 1,
+     "ocr_rows": 9,
+     "llm_rows": 0,
+     "ocr_fixed": 0,
+     "ocr_verified": 9,
+     "ocr_unresolved": 0,
+     "second_engine": 0
+    }
+   ]
+  }
+ ]
+}

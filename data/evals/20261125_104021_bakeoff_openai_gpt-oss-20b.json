@@ -1,0 +1,641 @@
+{
+ "model": "openai/gpt-oss-20b",
+ "extra_body": {
+  "reasoning_effort": "low"
+ },
+ "metadata": [
+  {
+   "dataset": "synthetic",
+   "id": "coral_02",
+   "score": {
+    "opening": false,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.5773099589996491
+  },
+  {
+   "dataset": "synthetic",
+   "id": "coral_01",
+   "score": {
+    "opening": false,
+    "closing": false,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.3356196659997295
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_03",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.5449717910005347
+  },
+  {
+   "dataset": "synthetic",
+   "id": "coral_03",
+   "score": {
+    "opening": false,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.44620387499981007
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_03",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.4479935839999598
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_02",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.30748708400005853
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_02",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.24854845900063083
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_01",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.5490102499998102
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00004",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 10.339353832999223
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00012",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 4.3230618340003275
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00028",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 0.37246912499995233
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00030",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 7.429717625000194
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00065",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 3.266270375000204
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00078",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 6.392643666999902
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00072",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 6.240122832999987
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00026",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 3.23861025000042
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00044",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 9.422595250000086
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00036",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 7.5220617919994766
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00020",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 3.288601500000368
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00028",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 1.4560248750003666
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00098",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 4.314231415999529
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00014",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 3.4940131250004924
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00012",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 5.274191999999857
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00049",
+   "score": {
+    "opening": true,
+    "closing": true,
+    "period": true,
+    "account_last4": true,
+    "bank": true
+   },
+   "error": null,
+   "seconds": 5.339583500000117
+  }
+ ],
+ "rows": [
+  {
+   "dataset": "synthetic",
+   "id": "coral_01",
+   "start": 23,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 12,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 0.8607599589995516
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_03",
+   "start": 69,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 0,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 0.888195249999626
+  },
+  {
+   "dataset": "synthetic",
+   "id": "coral_03",
+   "start": 11,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 12,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 4.957705416999488
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_02",
+   "start": 27,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 4,
+    "matched": 3,
+    "row_recall": 0.25,
+    "row_precision": 0.75,
+    "exact_rows": 0,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 9.07155558300019
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_02",
+   "start": 2,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 12,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 11.977462625000044
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00028",
+   "start": 56,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 0,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.0,
+     "debit": 0.8333333333333334,
+     "credit": 0.8333333333333334,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 1.8959054169999945
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00030",
+   "start": 114,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 11,
+    "row_recall": 0.9166666666666666,
+    "row_precision": 0.9166666666666666,
+    "exact_rows": 0,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.0,
+     "debit": 0.7272727272727273,
+     "credit": 0.7272727272727273,
+     "balance": 0.0
+    }
+   },
+   "error": null,
+   "seconds": 12.925118541999836
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00078",
+   "start": 1,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 3,
+    "matched": 3,
+    "row_recall": 0.25,
+    "row_precision": 1.0,
+    "exact_rows": 0,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.0,
+     "debit": 0.3333333333333333,
+     "credit": 0.3333333333333333,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 13.354029041000103
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00044",
+   "start": 24,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 5,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.4166666666666667,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 10.056652958000086
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00036",
+   "start": 91,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 7,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.5833333333333334,
+     "debit": 0.9166666666666666,
+     "credit": 0.9166666666666666,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 11.743189749999146
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00020",
+   "start": 88,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 4,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.3333333333333333,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 8.80473904200062
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00028",
+   "start": 67,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 1,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.08333333333333333,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 9.94008783299978
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00012",
+   "start": 137,
+   "score": {
+    "n_truth": 12,
+    "n_pred": 12,
+    "matched": 12,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 0,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "error": null,
+   "seconds": 12.001969208000446
+  }
+ ],
+ "usage": {
+  "calls": 37,
+  "cached_calls": 0,
+  "prompt_tokens": 25250,
+  "completion_tokens": 12334
+ },
+ "wall_seconds": 196.8170353329997,
+ "summary": {
+  "model": "openai/gpt-oss-20b",
+  "meta_n": 24,
+  "meta_acc": {
+   "opening": 0.875,
+   "closing": 0.9583333333333334,
+   "period": 1.0,
+   "account_last4": 1.0,
+   "bank": 1.0
+  },
+  "meta_errors": 0,
+  "row_chunks": 13,
+  "row_recall": 0.8782051282051282,
+  "row_exact": 0.33974358974358976,
+  "row_field_acc": {
+   "date": 1.0,
+   "description": 0.38686131386861317,
+   "debit": 0.9416058394160584,
+   "credit": 0.9416058394160584,
+   "balance": 0.9197080291970803
+  },
+  "row_errors": 0,
+  "sec_per_meta_call": 3.5487790695000285,
+  "sec_per_row_chunk": 8.344413124999916,
+  "tokens": 37584
+ }
+}

@@ -1,0 +1,6140 @@
+{
+ "mode": "parser",
+ "model": null,
+ "ocr_engine": null,
+ "provider": "groq",
+ "aggregate": {
+  "synthetic": {
+   "statements": 9,
+   "rows_truth": 566,
+   "rows_pred": 566,
+   "row_recall": 1.0,
+   "row_precision": 1.0,
+   "row_exact": 1.0,
+   "field_acc": {
+    "date": 1.0,
+    "description": 1.0,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 1.0
+   },
+   "statements_all_rows_exact": 1.0,
+   "reconciliation_pass": 1.0,
+   "truth_reconciliation_pass": 1.0,
+   "ambiguous_rows": 0,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 0.03242021755553045,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0
+  },
+  "agami_digital_t1": {
+   "statements": 100,
+   "rows_truth": 16204,
+   "rows_pred": 16204,
+   "row_recall": 1.0,
+   "row_precision": 1.0,
+   "row_exact": 0.9982103184398914,
+   "field_acc": {
+    "date": 1.0,
+    "description": 0.9982103184398914,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 1.0
+   },
+   "statements_all_rows_exact": 0.73,
+   "reconciliation_pass": 0.0,
+   "truth_reconciliation_pass": 0.0,
+   "ambiguous_rows": 10,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 0.15355345336005485,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0
+  },
+  "agami_digital_t2": {
+   "statements": 100,
+   "rows_truth": 16145,
+   "rows_pred": 16145,
+   "row_recall": 1.0,
+   "row_precision": 1.0,
+   "row_exact": 1.0,
+   "field_acc": {
+    "date": 1.0,
+    "description": 1.0,
+    "debit": 1.0,
+    "credit": 1.0,
+    "balance": 1.0
+   },
+   "statements_all_rows_exact": 1.0,
+   "reconciliation_pass": 0.0,
+   "truth_reconciliation_pass": 0.0,
+   "ambiguous_rows": 9,
+   "deterministic_fixes": 0,
+   "sec_per_statement": 0.14337202212002922,
+   "llm_calls_per_statement": 0,
+   "tokens_per_statement": 0
+  }
+ },
+ "statements": [
+  {
+   "dataset": "synthetic",
+   "id": "coral_01",
+   "score": {
+    "n_truth": 37,
+    "n_pred": 37,
+    "matched": 37,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 37,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.015377875000012864,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "coral_02",
+   "score": {
+    "n_truth": 57,
+    "n_pred": 57,
+    "matched": 57,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 57,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.036782250000214844,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "coral_03",
+   "score": {
+    "n_truth": 94,
+    "n_pred": 94,
+    "matched": 94,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 94,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.046397042000535293,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_01",
+   "score": {
+    "n_truth": 36,
+    "n_pred": 36,
+    "matched": 36,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 36,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.013503749999472348,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_02",
+   "score": {
+    "n_truth": 69,
+    "n_pred": 69,
+    "matched": 69,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 69,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.039745000000039,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "northwind_03",
+   "score": {
+    "n_truth": 92,
+    "n_pred": 92,
+    "matched": 92,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 92,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.04987658299978648,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_01",
+   "score": {
+    "n_truth": 35,
+    "n_pred": 35,
+    "matched": 35,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 35,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.02069412499986356,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_02",
+   "score": {
+    "n_truth": 52,
+    "n_pred": 52,
+    "matched": 52,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 52,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.026766124999994645,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "synthetic",
+   "id": "summit_03",
+   "score": {
+    "n_truth": 94,
+    "n_pred": 94,
+    "matched": 94,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 94,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": true,
+   "seconds": 0.04263920799985499,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": true,
+   "status": "ok",
+   "ambiguous": 0,
+   "breaks": 0,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00001",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11864958400019532,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00002",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9937888198757764,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1188661249998404,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00003",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1349330410002949,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00004",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13784279199990124,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00005",
+   "score": {
+    "n_truth": 170,
+    "n_pred": 170,
+    "matched": 170,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 169,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9941176470588236,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14280774999951973,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 38,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00006",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.09959116600020934,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00007",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1362787499992919,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00008",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9939759036144579,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13548741600061476,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00009",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10625604199958616,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00010",
+   "score": {
+    "n_truth": 167,
+    "n_pred": 167,
+    "matched": 167,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 167,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1539792090006813,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 26,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00011",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13690787500036095,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00012",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9939393939393939,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13048145799984923,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 28,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00013",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11557612500018877,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00014",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10651600000073813,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00015",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13146975000017846,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 26,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00016",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9873417721518988,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13960104099987802,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00017",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1380551669999477,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00018",
+   "score": {
+    "n_truth": 167,
+    "n_pred": 167,
+    "matched": 167,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 167,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17735795800035703,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 34,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00019",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15448083400042378,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00020",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9936305732484076,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.21799729200029105,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00021",
+   "score": {
+    "n_truth": 170,
+    "n_pred": 170,
+    "matched": 170,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 170,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14394412499950704,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 34,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00022",
+   "score": {
+    "n_truth": 170,
+    "n_pred": 170,
+    "matched": 170,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 170,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11392625000007683,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 33,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00023",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.99375,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11077583400037838,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 18,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00024",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11817216600047686,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00025",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14295195799968496,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00026",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12702616700062208,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00027",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11181991699959326,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00028",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12815858399972058,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 25,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00029",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9937106918238994,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1471069160006664,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00030",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15147170900036144,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 7,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00031",
+   "score": {
+    "n_truth": 172,
+    "n_pred": 172,
+    "matched": 172,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 172,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10274645800018334,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 38,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00032",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13282862500000192,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00033",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14840249999997468,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00034",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.18006529099966428,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 27,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00035",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16139824999936536,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00036",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9938650306748467,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14340733400058525,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00037",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1257305829994948,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00038",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9880952380952381,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11815512500015757,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 29,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00039",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16958379200059426,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00040",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9938650306748467,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1379115420004382,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00041",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1182600829997682,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00042",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12209824999990815,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00043",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1096637919999921,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00044",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 154,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9935483870967742,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11249108400079422,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00045",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.09298616700016282,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00046",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17502208299993072,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 29,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00047",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13117612499991083,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00048",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11548483400019904,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00049",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.09811554200041428,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00050",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9937888198757764,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1177285829999164,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00051",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12734574999922188,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00052",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9937106918238994,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14054270799988444,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00053",
+   "score": {
+    "n_truth": 169,
+    "n_pred": 169,
+    "matched": 169,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 169,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1426995829997395,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 33,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00054",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1439774580003359,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00055",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13698649999969348,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 27,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00056",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15432770799998252,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00057",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9939024390243902,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16773912500048027,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 26,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00058",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12630358299975342,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 13,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00059",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14498604199980036,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00060",
+   "score": {
+    "n_truth": 171,
+    "n_pred": 171,
+    "matched": 171,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 171,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1602303750005376,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 32,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00061",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1817422499998429,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 18,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00062",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1632686670000112,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00063",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1482819169996219,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 27,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00064",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16056141600074625,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00065",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.99375,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1649589159997049,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 18,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00066",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13533387499956007,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00067",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16886737500044546,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 28,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00068",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12580029200034915,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00069",
+   "score": {
+    "n_truth": 167,
+    "n_pred": 167,
+    "matched": 167,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 167,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.2006447499998103,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 29,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00070",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.18905329199969856,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00071",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17996716699963144,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00072",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14565308300007018,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00073",
+   "score": {
+    "n_truth": 172,
+    "n_pred": 172,
+    "matched": 172,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 171,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9941860465116279,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17284070900041115,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 37,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00074",
+   "score": {
+    "n_truth": 172,
+    "n_pred": 172,
+    "matched": 172,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 172,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13127320900002815,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 37,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00075",
+   "score": {
+    "n_truth": 170,
+    "n_pred": 170,
+    "matched": 170,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 170,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1524428339998849,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 34,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00076",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9938650306748467,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11301875000026484,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00077",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9939024390243902,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16115495799931523,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00078",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16518550000000687,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00079",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.99375,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15635329100041417,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 15,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00080",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9939024390243902,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.23438129100031801,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00081",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15935970900045504,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00082",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9935897435897436,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.2044657920005193,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00083",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17972441599977174,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00084",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16132137500062527,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00085",
+   "score": {
+    "n_truth": 167,
+    "n_pred": 167,
+    "matched": 167,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 167,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.22739224999986618,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00086",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.3609083749997808,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00087",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16167816600045626,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00088",
+   "score": {
+    "n_truth": 153,
+    "n_pred": 153,
+    "matched": 153,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 152,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9934640522875817,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16596887499963486,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 6,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00089",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.21624520899968047,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 13,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00090",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17500291700071102,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00091",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.21235612500004208,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 20,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00092",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.19389179199970386,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00093",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12592820800000482,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 26,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00094",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9936305732484076,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1398601669998243,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00095",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1376767080000718,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00096",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9936305732484076,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.23573162499997125,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00097",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9939759036144579,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.3557305419999466,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 28,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00098",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.20496075000028213,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00099",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.19791875000009895,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t1",
+   "id": "t1_00100",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 0.9938650306748467,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.20155616699958046,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00001",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1293863330001841,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00002",
+   "score": {
+    "n_truth": 167,
+    "n_pred": 167,
+    "matched": 167,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 167,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14167079100025148,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00003",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12167362499985757,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00004",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15201620800053206,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00005",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16407879200050957,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00006",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12053829199976462,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00007",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13331091700001707,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00008",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1823765409999396,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00009",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13988700000027166,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00010",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14574020899999596,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00011",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1253662080007416,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00012",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13487679200079583,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00013",
+   "score": {
+    "n_truth": 171,
+    "n_pred": 171,
+    "matched": 171,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 171,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13535608399979537,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 32,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00014",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1437940410005467,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 11,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00015",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1506449580001572,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00016",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14342408300035459,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 27,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00017",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13015737499972602,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00018",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1385019999997894,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00019",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16398212500007503,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00020",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12536445800014917,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00021",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16223895799976162,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00022",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13632945900008053,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00023",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13096020899956784,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00024",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11940654200043355,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00025",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13660658299977513,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00026",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13826562499980355,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 33,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00027",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1304540419996556,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00028",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1400271669999711,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00029",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1386607089998506,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00030",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14111562499965657,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00031",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13437849999991158,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 31,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00032",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12724875000003522,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00033",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13886666700000205,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00034",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.22537120900051377,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00035",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.18019079199984844,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 26,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00036",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17659466599980078,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 33,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00037",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17699050000010175,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00038",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16865387500001816,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00039",
+   "score": {
+    "n_truth": 169,
+    "n_pred": 169,
+    "matched": 169,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 169,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14087495900002978,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00040",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14195862499946088,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00041",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13239358299961168,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 18,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00042",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16013404199929937,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 11,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00043",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16271520799909922,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00044",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1563771250002901,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 29,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00045",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.32010983300006046,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00046",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11341679099950852,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 28,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00047",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.09646695799983718,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00048",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13031408299957548,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 11,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00049",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15484637500048848,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00050",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15164370900038193,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00051",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1364000000003216,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00052",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.09381016699990141,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 18,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00053",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12451983400023892,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00054",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15614825000011479,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 15,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00055",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11204062500019063,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00056",
+   "score": {
+    "n_truth": 171,
+    "n_pred": 171,
+    "matched": 171,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 171,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10787137500028621,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 34,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00057",
+   "score": {
+    "n_truth": 171,
+    "n_pred": 171,
+    "matched": 171,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 171,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17453583400038042,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 38,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00058",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11598545800006832,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 11,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00059",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12092200000006414,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 25,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00060",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12655724999967788,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00061",
+   "score": {
+    "n_truth": 155,
+    "n_pred": 155,
+    "matched": 155,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 155,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13609704099962983,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 8,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00062",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11311412499981088,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 16,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00063",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1567315829997824,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 25,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00064",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1670016250000117,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00065",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13700995799990778,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 13,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00066",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15288141700057167,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00067",
+   "score": {
+    "n_truth": 170,
+    "n_pred": 170,
+    "matched": 170,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 170,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13316979100000026,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 33,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00068",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12790858400057914,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 13,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00069",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.21838449999995646,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00070",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17649291599991557,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 27,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00071",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.15879399999994348,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 28,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00072",
+   "score": {
+    "n_truth": 164,
+    "n_pred": 164,
+    "matched": 164,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 164,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16341879199990217,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00073",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13243645900001866,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 23,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00074",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13891016700017644,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00075",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14006537499972183,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00076",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10980550000022049,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00077",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12035895899953175,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00078",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16040637500009325,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 13,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00079",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17089120800028468,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00080",
+   "score": {
+    "n_truth": 163,
+    "n_pred": 163,
+    "matched": 163,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 163,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13062708300003578,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 25,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00081",
+   "score": {
+    "n_truth": 159,
+    "n_pred": 159,
+    "matched": 159,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 159,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12059904200032179,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00082",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12563091600077314,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 22,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00083",
+   "score": {
+    "n_truth": 161,
+    "n_pred": 161,
+    "matched": 161,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 161,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.11908549999952811,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 19,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00084",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.144619125000645,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00085",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10900829199999862,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00086",
+   "score": {
+    "n_truth": 165,
+    "n_pred": 165,
+    "matched": 165,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 165,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13728066699968622,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 24,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00087",
+   "score": {
+    "n_truth": 157,
+    "n_pred": 157,
+    "matched": 157,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 157,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.127661459000592,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 10,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00088",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14986154199959856,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 12,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00089",
+   "score": {
+    "n_truth": 158,
+    "n_pred": 158,
+    "matched": 158,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 158,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.12052791600035562,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 15,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00090",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.10712475000036648,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 14,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00091",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16117708399997355,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 30,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00092",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1537150419999307,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 1,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00093",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1385584999998173,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00094",
+   "score": {
+    "n_truth": 168,
+    "n_pred": 168,
+    "matched": 168,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 168,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1380533329993341,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 31,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00095",
+   "score": {
+    "n_truth": 154,
+    "n_pred": 154,
+    "matched": 154,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 154,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.1252665000001798,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 7,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00096",
+   "score": {
+    "n_truth": 156,
+    "n_pred": 156,
+    "matched": 156,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 156,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.13678458300000784,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 9,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00097",
+   "score": {
+    "n_truth": 160,
+    "n_pred": 160,
+    "matched": 160,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 160,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14059975000054692,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 17,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00098",
+   "score": {
+    "n_truth": 169,
+    "n_pred": 169,
+    "matched": 169,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 169,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.14758229200015194,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 32,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00099",
+   "score": {
+    "n_truth": 162,
+    "n_pred": 162,
+    "matched": 162,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 162,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.17027416699966125,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 21,
+   "fixes": 0,
+   "meta": null
+  },
+  {
+   "dataset": "agami_digital_t2",
+   "id": "t2_00100",
+   "score": {
+    "n_truth": 166,
+    "n_pred": 166,
+    "matched": 166,
+    "row_recall": 1.0,
+    "row_precision": 1.0,
+    "exact_rows": 166,
+    "field_acc": {
+     "date": 1.0,
+     "description": 1.0,
+     "debit": 1.0,
+     "credit": 1.0,
+     "balance": 1.0
+    }
+   },
+   "truth_reconciles": false,
+   "seconds": 0.16473750000022847,
+   "llm_calls": 0,
+   "tokens": 0,
+   "reconciled": false,
+   "status": "awaiting_review",
+   "ambiguous": 0,
+   "breaks": 28,
+   "fixes": 0,
+   "meta": null
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+# secrets
+.env
+
+# real statements carry PII: never commit
+data/samples/*
+!data/samples/.gitkeep
+
+# generated synthetic set (regenerate with scripts/generate_synthetic.py)
+data/synthetic/*
+!data/synthetic/.gitkeep
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# node
+node_modules/
+frontend/dist/
+
+.DS_Store
+.idea/
+
+# AgamiAI Indian-Bank-Statements (1.4 GB, download with scripts/download_agami.sh)
+data/agami/
+
+# cached LLM responses for evals
+data/cache/
+
+# generated review artefacts (regenerate with scripts/make_review_cases.py / scripts/review.py)
+data/review/
+data/review_cases/

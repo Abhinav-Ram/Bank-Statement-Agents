@@ -38,6 +38,8 @@ class IngestState(TypedDict, total=False):
     stages: str  # extract | full
     review_mode: str  # interrupt | skip
     reviewed: bool  # a reviewer accepted the statement as-is
+    kept_issues: list[str]  # issue ids the reviewer chose to keep as printed
+    review_error: str | None  # the last answer couldn't be used; shown in the next request
     review_log: list[dict]  # each review round: action, how many edits, note
     txn_ids: list[int]
     categories: list[dict]
@@ -210,8 +212,17 @@ def _review_request(state: IngestState) -> dict:
     req = build_review(stmt_id=state.get("stmt_id"), pdf=state["pdf"],
                        meta=StatementMeta(**state["meta"]), rows=_rows(state),
                        report=state["report"], layouts=state.get("layouts"),
-                       source_type=state.get("source_type", "digital"))
+                       source_type=state.get("source_type", "digital"),
+                       previous_answer_error=state.get("review_error"))
     return req.model_dump(mode="json")
+
+
+def _kept_covers(state: IngestState) -> bool:
+    """Everything still open is something the reviewer explicitly chose to keep as printed."""
+    from app.services.review import open_issue_ids
+
+    kept = set(state.get("kept_issues") or [])
+    return bool(kept) and open_issue_ids(state["report"]) <= kept
 
 
 def human_review(state: IngestState) -> IngestState:
@@ -225,28 +236,42 @@ def human_review(state: IngestState) -> IngestState:
 
     answer = interrupt(_review_request(state))
     t0 = time.perf_counter()
-    ans = parse_answer(answer)
-    log_entry: dict = {"round": len(state.get("review_log", [])) + 1}
+    rounds = [*state.get("review_log", [])]
+    log_entry: dict = {"round": len(rounds) + 1}
+    try:
+        ans = parse_answer(answer)
+        edits, meta_upd = to_internal(ans) if isinstance(ans, ReviewAnswer) else (ans, {})
+    except ValueError as e:  # pydantic ValidationError is a ValueError too
+        msg = str(e).splitlines()[0][:200]
+        log_entry |= {"action": "invalid", "error": msg}
+        return {"review_error": f"Your last answer couldn't be used: {msg}",
+                "review_log": [*rounds, log_entry],
+                "events": _event(state, "human_review", t0, invalid=True)}
     if isinstance(ans, ReviewAnswer) and ans.action == "accept":
         log_entry |= {"action": "accept", "note": ans.note}
-        return {"reviewed": True, "review_log": [*state.get("review_log", []), log_entry],
+        return {"reviewed": True, "review_error": None, "review_log": [*rounds, log_entry],
                 "events": _event(state, "human_review", t0, accepted=True)}
+    # Which cards are kept as printed. An edited card is never kept: if the edit doesn't make it
+    # add up, the person is asked again (a typo in a correction must not slip through).
+    edited = {f"row-{e['idx']}" for e in edits} | ({"closing"} if meta_upd else set())
+    kept: set[str] = set()
     if isinstance(ans, ReviewAnswer):
-        edits, meta_upd = to_internal(ans)
-        log_entry |= {"action": "correct", "rows": len(edits), "meta": sorted(meta_upd),
-                      "note": ans.note, "keep_remaining": ans.keep_remaining}
-    else:
-        edits, meta_upd = ans, {}
-        log_entry |= {"action": "correct", "rows": len(edits)}
+        kept = set(ans.keep)
+        if ans.keep_remaining:
+            from app.services.review import open_issue_ids
+            kept |= open_issue_ids(state["report"])
+        kept -= edited
+        log_entry |= {"note": ans.note, "kept": len(kept)}
+    log_entry |= {"action": "correct", "rows": len(edits), "meta": sorted(meta_upd)}
     rows = apply_corrections(_rows(state), edits)
     out: IngestState = {"rows": _dump(rows), "attempts": MAX_RETRIES,  # no more auto retries
-                        "review_log": [*state.get("review_log", []), log_entry],
+                        "review_log": [*rounds, log_entry], "review_error": None,
+                        "kept_issues": sorted((set(state.get("kept_issues") or []) - edited)
+                                              | kept),
                         "events": _event(state, "human_review", t0, corrected=len(edits),
                                          meta=sorted(meta_upd))}
     if meta_upd:
         out["meta"] = {**state["meta"], **meta_upd}
-    if isinstance(ans, ReviewAnswer) and ans.keep_remaining:
-        out["reviewed"] = True
     return out
 
 
@@ -271,7 +296,7 @@ def finalize(state: IngestState) -> IngestState:
     if state.get("status") == "needs_ocr":
         return {}
     report = {**state["report"], "review_log": state.get("review_log", [])}
-    if state["report"]["ok"] or state.get("reviewed"):
+    if state["report"]["ok"] or state.get("reviewed") or _kept_covers(state):
         return {"status": "ok", "report": report}
     if state.get("stages") == "full":
         report["review"] = _review_request(state)
@@ -388,7 +413,7 @@ def after_parse(state: IngestState) -> str:
 def after_validate(state: IngestState) -> str:
     if state["report"]["retry_idx"] and state["attempts"] < MAX_RETRIES:
         return "retry"
-    if (not state["report"]["ok"] and not state.get("reviewed")
+    if (not state["report"]["ok"] and not state.get("reviewed") and not _kept_covers(state)
             and state.get("stages") == "full" and state.get("review_mode") == "interrupt"):
         return "human_review"
     return "finalize"

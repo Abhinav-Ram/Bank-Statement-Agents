@@ -48,12 +48,25 @@ The person sends back a **ReviewAnswer**:
 ```json
 {"action": "accept", "note": "PDF prints these numbers"}
 {"action": "correct", "rows": [{"idx": 19, "debit": "9,562.10"}],
- "meta": {"closing_balance": "2,00,000"}, "keep_remaining": false, "note": "..."}
+ "meta": {"closing_balance": "2,00,000"}, "keep": ["row-42", "closing"], "note": "..."}
 ```
 Amounts are typed in rupees, as people read them: "1,234.50", 1234.5 or "500 Dr" for an
 overdrawn balance. A suggestion's `rows`/`meta` can be sent back unchanged. Corrections are
 always re-validated. If something still doesn't add up, the graph pauses again with a fresh
-request, unless `keep_remaining` is set. Each round is recorded in `review_log`.
+request. The only exception is cards listed in `keep`, the ids of cards the person chose to keep
+as printed; `keep_remaining` keeps every card they didn't edit. An edited row is never kept:
+if a correction is itself wrong, the person is asked again. An answer that can't be used (e.g.
+"abc" as an amount) changes nothing and comes back as `previous_answer_error`.
+
+Each card also has an `origin`:
+- `statement`: the PDF prints it;
+- `reading`: our extraction, or a value the person entered;
+- `details`: the header or closing balance.
+
+When five or more cards exist and most have origin `statement`, the headline suggests
+spot-checking a few and keeping all. Follow-on cards ("Row 12: follows from row 11") carry no
+suggestions. Closing-balance cards point at the last transaction row on the page. Each round is
+recorded in `review_log`.
 
 In batch mode (`review_mode="skip"`), the same ReviewRequest is stored in
 `statements.reconciliation.review`, so the UI can show it later. Checkpoints live in Postgres

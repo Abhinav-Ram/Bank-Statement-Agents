@@ -55,6 +55,9 @@ WHY_BREAK = {
         "disagree. Compare with the highlighted row on the page."),
     "retryable": "This row was hard to read and the automatic repair didn't fix it.",
 }
+WHY_USER_ENTRY = (
+    "This row has the values you entered, and it still doesn't add up. Check them against the "
+    "PDF (the first suggestion is the value that would make it add up).")
 WHY_PRINTED_TYPO = (
     "These are the numbers the statement prints, but changing just one value (the first "
     "suggestion) makes the rows around it add up, so it is most likely a typo on the statement. "
@@ -152,6 +155,9 @@ class Issue(BaseModel):
     id: str  # stable within one request: "row-12", "closing"
     kind: Literal["balance_break", "unclear_row", "opening_balance", "closing_balance"]
     severity: Literal["fix", "check"]  # fix: probably a reading error; check: likely fine
+    # where the problem most likely comes from: the statement prints it ("statement"), we
+    # misread it ("reading"), or the statement details/header ("details")
+    origin: Literal["statement", "reading", "details"] = "reading"
     title: str
     explanation: str
     row_idx: int | None = None
@@ -187,21 +193,34 @@ class ReviewRequest(BaseModel):
     statement: StatementInfo
     checks: list[Check]
     issues: list[Issue]
+    # set when the previous answer couldn't be used (e.g. "abc" typed as an amount)
+    previous_answer_error: str | None = None
     # also legacy-friendly: the raw validator messages
     errors: list[str] = []
 
 
 # ------------------------------------------------------------------ what the person sends back
 class ReviewAnswer(BaseModel):
-    """action="accept": keep everything as printed and save. action="correct": apply the edits,
-    re-check, and ask again only if something still doesn't add up — unless keep_remaining, in
-    which case whatever still doesn't add up is accepted as printed."""
+    """action="accept": keep everything as printed and save.
+    action="correct": apply the edits, re-check, and ask again if anything still doesn't add up,
+    except issues listed in `keep` (ids of cards the person chose to keep as printed).
+    `keep_remaining` = keep every card of this request that wasn't edited. An edited row is never
+    kept: if it still doesn't add up after the edit, the person is asked again."""
     model_config = ConfigDict(extra="ignore")
     action: Literal["accept", "correct"]
     rows: list[RowEdit] = []
     meta: MetaEdit | None = None
+    keep: list[str] = []
     keep_remaining: bool = False
     note: str | None = None
+
+
+def open_issue_ids(report: dict) -> set[str]:
+    """Ids of the problems a report shows (same ids as the Issue cards)."""
+    ids = {f"row-{b['idx']}" for b in report.get("breaks", [])}
+    if report.get("totals_ok") is False or report.get("closing_matches_last") is False:
+        ids.add("closing")
+    return ids
 
 
 def _paise(v: str | float | None) -> int | None:
@@ -343,26 +362,29 @@ def _break_issue(rows: list[Txn], b: dict, breaks: set[int], meta: StatementMeta
     knock_on = (prev_break is not None and t.balance is not None
                 and prev_break["expected"] + _net(t) == t.balance)
     if knock_on:
-        for sg in sugg:
-            sg.likely = False
         return Issue(
             id=f"row-{i}", kind="balance_break", severity="check",
+            origin="statement" if b["kind"] == "source_inconsistency" else "reading",
             title=f"Row {i + 1}: follows from row {i}",
             explanation=(f"This row doesn't add up only because row {i}'s balance looks wrong: "
                          f"if row {i}'s balance is {inr(prev_break['expected'])}, this row's "
                          f"numbers are right. Decide row {i} first; this row usually needs no "
                          "change."),
             row_idx=i, location=_location(t, sizes), context=_context(rows, i),
-            suggestions=sugg, editable=EDITABLE_ROW)
+            editable=EDITABLE_ROW)  # no suggestions: the fix belongs to the previous row
     sugg.sort(key=lambda s: not s.likely)
-    printed_typo = b["kind"] == "source_inconsistency" and sugg[0].likely
-    why = WHY_PRINTED_TYPO if printed_typo else _why(b["kind"], t)
+    by_user = t.source == "user"
+    printed_typo = b["kind"] == "source_inconsistency" and sugg[0].likely and not by_user
+    why = (WHY_USER_ENTRY if by_user else
+           WHY_PRINTED_TYPO if printed_typo else _why(b["kind"], t))
     expl = (f"Starting from {prev_what} {inr(prev)} {_movement(t)} gives {inr(expected)}, but "
             f"this row's balance reads {inr(printed)} (a difference of "
             f"{inr(abs(printed - expected))}). " + why)
     return Issue(id=f"row-{i}", kind="balance_break",
-                 severity="check" if b["kind"] == "source_inconsistency" and not printed_typo
-                 else "fix",
+                 origin="statement" if (b["kind"] == "source_inconsistency"
+                                        and not by_user) else "reading",
+                 severity="check" if (b["kind"] == "source_inconsistency" and not printed_typo
+                                      and not by_user) else "fix",
                  title=f"Row {i + 1}: the balance doesn't add up", explanation=expl, row_idx=i,
                  location=_location(t, sizes), context=_context(rows, i), suggestions=sugg,
                  editable=EDITABLE_ROW)
@@ -381,7 +403,8 @@ def _unclear_issue(rows: list[Txn], i: int, sizes: dict) -> Issue:
 
 def build_review(*, stmt_id: str | None, pdf: str, meta: StatementMeta, rows: list[Txn],
                  report: dict, layouts: list[dict] | None = None,
-                 source_type: str = "digital") -> ReviewRequest:
+                 source_type: str = "digital",
+                 previous_answer_error: str | None = None) -> ReviewRequest:
     sizes = {lay["page"]: (lay["width"], lay["height"]) for lay in layouts or []
              if lay.get("width")}
     breaks = report.get("breaks", [])
@@ -398,6 +421,12 @@ def build_review(*, stmt_id: str | None, pdf: str, meta: StatementMeta, rows: li
     implied = (meta.opening_balance + credits - debits
                if meta.opening_balance is not None else None)
     later = " This may sort itself out once the rows above are fixed." if breaks else ""
+    # Point at something on the page: the last transaction row (its balance is the closing one).
+    last_loc = _location(rows[-1], sizes) if rows else None
+    last_ctx = [_view(rows, len(rows) - 1, "flagged")] if rows else []
+    where_last = (f" The last transaction (page {rows[-1].page}, highlighted) shows a balance of "
+                  f"{inr(last)}; compare it with the closing balance printed on the statement."
+                  if rows and last is not None and rows[-1].page else "")
     if report.get("totals_ok") is False:
         sugg = []
         if last is not None and last == implied:
@@ -408,17 +437,20 @@ def build_review(*, stmt_id: str | None, pdf: str, meta: StatementMeta, rows: li
                 meta=MetaEdit(closing_balance=_rupees(last))))
         issues.append(Issue(
             id="closing", kind="closing_balance", severity="check" if breaks else "fix",
+            origin="statement" if breaks else "details",
             title="The totals don't match the closing balance",
             explanation=(f"Opening {inr(meta.opening_balance)} + credits {inr(credits)} − "
                          f"debits {inr(debits)} = {inr(implied)}, but the statement's closing "
-                         f"balance is {inr(meta.closing_balance)}." + later),
+                         f"balance is {inr(meta.closing_balance)}." + where_last + later),
+            location=last_loc, context=last_ctx,
             suggestions=sugg, editable=["opening_balance", "closing_balance"]))
     elif report.get("closing_matches_last") is False:
         issues.append(Issue(
-            id="closing", kind="closing_balance", severity="fix",
+            id="closing", kind="closing_balance", severity="fix", origin="details",
             title="The closing balance differs from the last row",
             explanation=(f"The last row's balance is {inr(last)} but the closing balance reads "
-                         f"{inr(meta.closing_balance)}."),
+                         f"{inr(meta.closing_balance)}." + where_last),
+            location=last_loc, context=last_ctx,
             suggestions=[Suggestion(id="closing-from-rows", likely=True,
                                     label=f"Closing balance is {inr(last)}",
                                     why="Matches the last row's balance.",
@@ -455,6 +487,12 @@ def build_review(*, stmt_id: str | None, pdf: str, meta: StatementMeta, rows: li
     else:
         headline = (f"{n_fix} item{'s' if n_fix > 1 else ''} likely wrong, "
                     f"{len(issues) - n_fix} to confirm. Please check them against the PDF.")
+    n_stmt = sum(i.origin == "statement" for i in issues)
+    if len(issues) >= 5 and n_stmt >= 0.6 * len(issues):
+        some = "All" if n_stmt == len(issues) else f"{n_stmt} of them"
+        headline = (f"{len(issues)} items to look at. {some} come from the statement itself "
+                    "(the PDF prints numbers that don't add up): spot-check a few against the "
+                    "PDF, and if they match, keep them all as printed.")
     period = (f"{date_text(meta.period_start)} – {date_text(meta.period_end)}"
               if meta.period_start and meta.period_end else None)
     info = StatementInfo(file_name=Path(pdf).name, bank=meta.bank_name,
@@ -463,4 +501,5 @@ def build_review(*, stmt_id: str | None, pdf: str, meta: StatementMeta, rows: li
                          closing_balance=money(meta.closing_balance), rows=len(rows),
                          source_type=source_type)
     return ReviewRequest(stmt_id=stmt_id, headline=headline, statement=info, checks=checks,
-                         issues=issues, errors=report.get("errors", []))
+                         issues=issues, errors=report.get("errors", []),
+                         previous_answer_error=previous_answer_error)

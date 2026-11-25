@@ -78,7 +78,7 @@ def test_misread_balance_issue_suggests_balance_and_says_it_fixes_next_row():
     assert "row 3" in best.why
     knock = next(i for i in req.issues if i.row_idx == 2)
     assert knock.severity == "check" and knock.title == "Row 3: follows from row 2"
-    assert not any(sg.likely for sg in knock.suggestions)
+    assert knock.suggestions == []  # the fix belongs to row 2; nothing to tempt a wrong change
     fixed, meta = apply(rows, META, best)
     assert validate(meta, fixed).ok
 
@@ -173,3 +173,30 @@ def test_state_with_ocr_coordinates_is_checkpoint_safe():
     t = Txn(date="2025-01-01", debit=1, balance=1, bbox=tuple(np.float64(v) for v in (1, 2, 3, 4)))
     state = {"rows": _dump([t]), "layouts": _plain([{"width": np.float64(595.0)}])}
     JsonPlusSerializer().dumps_typed(state)  # raises on numpy types
+
+
+def test_closing_card_points_at_the_last_row_on_the_page():
+    rows = [T(1, debit=100_00, bal=900_00), T(2, debit=500_00, bal=400_00),
+            T(3, debit=100_00, bal=300_00)]
+    req = review(rows, META.model_copy(update={"closing_balance": 3000_00}))
+    (iss,) = req.issues
+    assert iss.origin == "details" and iss.location.page == 1 and iss.location.bbox
+    assert iss.context[0].row_number == 3 and "page 1" in iss.explanation
+
+
+def test_many_statement_side_issues_suggest_keeping_all():
+    bal, rows = 1000_00, []
+    for d in range(1, 13):  # every other row prints a balance that's off by ₹7, never fixable
+        bal -= 10_00
+        rows.append(T(d, debit=10_00, bal=bal + (700 * d if d % 2 else 0)))
+    req = review(rows, META.model_copy(update={"closing_balance": rows[-1].balance}))
+    assert sum(i.origin == "statement" for i in req.issues) >= 5
+    assert "keep them all as printed" in req.headline
+
+
+def test_a_users_own_wrong_entry_is_called_that():
+    rows = [T(1, debit=100_00, bal=900_00), T(2, debit=52_00, bal=400_00, source="user"),
+            T(3, debit=100_00, bal=300_00)]
+    iss = review(rows).issues[0]
+    assert "values you entered" in iss.explanation and iss.severity == "fix"
+    assert "statement prints" not in iss.explanation

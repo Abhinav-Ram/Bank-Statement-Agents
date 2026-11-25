@@ -161,6 +161,61 @@ def test_paused_review_shows_readable_issues_and_a_suggestion_can_be_sent_back(e
     assert done["state"]["review_log"][0]["action"] == "correct"
 
 
+def _amount_typo_case(tmp_path):
+    """Synthetic statement with one debit printed with two digits swapped (a printed typo)."""
+    import sys
+    sys.path.insert(0, "scripts")
+    from make_review_cases import replace_cell, swap_digits
+
+    from app.parsing.digital import parse_pdf
+    tr = next(t for t in SYN if t.id.startswith("summit_01"))
+    rows = parse_pdf(tr.pdf).rows
+    i = next(k for k in range(8, len(rows)) if rows[k].debit and rows[k].page == 1)
+    old = rows[i].raw["debit"]
+    pdf = tmp_path / "typo.pdf"
+    replace_cell(tr.pdf, pdf, rows[i].page, rows[i].bbox, old, swap_digits(old))
+    return pdf, truth_meta(tr), i, old
+
+
+def test_a_wrong_correction_is_asked_again_even_if_other_cards_were_kept(env, tmp_path):
+    from langgraph.checkpoint.memory import InMemorySaver
+
+    from app.graphs.ingestion import build_graph, resume_ingestion, start_ingestion
+
+    pdf, meta, i, true_amount = _amount_typo_case(tmp_path)
+    g = build_graph(checkpointer=InMemorySaver())
+    out = start_ingestion(g, str(pdf), review_mode="interrupt", meta_override=meta)
+    ids = {x["id"] for x in out["interrupt"]["issues"]}
+    assert ids == {f"row-{i}", "closing"}
+    # reviewer types a wrong value for the row and keeps the follow-on totals card
+    again = resume_ingestion(g, out["stmt_id"], {"action": "correct", "keep": ["closing"],
+                                                 "rows": [{"idx": i, "debit": "1.00"}]})
+    assert again["interrupt"] is not None  # NOT saved: the edited row still doesn't add up
+    assert f"row-{i}" in {x["id"] for x in again["interrupt"]["issues"]}
+    # a value that isn't an amount is reported back, nothing is applied
+    bad = resume_ingestion(g, out["stmt_id"], {"action": "correct",
+                                               "rows": [{"idx": i, "debit": "abc"}]})
+    assert "couldn't be used" in bad["interrupt"]["previous_answer_error"]
+    done = resume_ingestion(g, out["stmt_id"], {"action": "correct",
+                                                "rows": [{"idx": i, "debit": true_amount}]})
+    assert done["interrupt"] is None and done["state"]["status"] == "ok"
+    assert done["state"]["report"]["ok"]
+
+
+def test_keeping_cards_as_printed_saves_without_asking_again(env, tmp_path):
+    from langgraph.checkpoint.memory import InMemorySaver
+
+    from app.graphs.ingestion import build_graph, resume_ingestion, start_ingestion
+
+    pdf, meta, i, _ = _amount_typo_case(tmp_path)
+    g = build_graph(checkpointer=InMemorySaver())
+    out = start_ingestion(g, str(pdf), review_mode="interrupt", meta_override=meta)
+    done = resume_ingestion(g, out["stmt_id"], {"action": "correct",
+                                                "keep": [f"row-{i}", "closing"]})
+    assert done["interrupt"] is None and done["state"]["status"] == "ok"
+    assert not done["state"]["report"]["ok"]  # kept as printed, honestly not reconciled
+
+
 def test_batch_mode_stores_the_review_for_later(env):
     from app.db import connect
     from app.graphs.ingestion import build_graph, start_ingestion

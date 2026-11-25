@@ -74,6 +74,8 @@ def show_request(req: ReviewRequest) -> None:
     mark = {"pass": "✓", "fail": "✗", "unknown": "?"}
     for c in req.checks:
         print(f"  {mark[c.status]} {c.label}  {dim(c.detail)}")
+    if req.previous_answer_error:
+        print("\n" + b("⚠ " + req.previous_answer_error))
     print("\n" + b(req.headline))
     print(dim(req.instructions))
 
@@ -112,12 +114,30 @@ MENU = ("  {nums}k keep as printed · e edit · s skip (decide later) · "
         "K keep ALL remaining · q quit (resume later)")
 
 
+MONEY = {"debit", "credit", "balance", "opening_balance", "closing_balance"}
+
+
+def ask_value(label: str, field: str) -> str:
+    """Re-prompt until a money field parses (the pipeline would reject it otherwise)."""
+    from app.services.review import _paise
+
+    while True:
+        v = ask(label)
+        if not v or field not in MONEY:
+            return v
+        try:
+            _paise(v)
+            return v
+        except ValueError:
+            print(f"      '{v}' isn't an amount — try e.g. 1,234.50 or 500 Dr")
+
+
 def edit_issue(iss: Issue, row_view) -> tuple[RowEdit | None, MetaEdit | None]:
     print(dim("  Type new values (rupees, e.g. 1,234.50 or '500 Dr'); Enter keeps the current."))
     if iss.row_idx is None:
         vals = {}
         for f in iss.editable:
-            v = ask(f"    {f}: ")
+            v = ask_value(f"    {f}: ", f)
             if v:
                 vals[f] = v
         return None, MetaEdit(**vals) if vals else None
@@ -125,7 +145,7 @@ def edit_issue(iss: Issue, row_view) -> tuple[RowEdit | None, MetaEdit | None]:
     for f in iss.editable:
         cur = getattr(row_view, f)
         cur_txt = cur.text if hasattr(cur, "text") else (cur or "")
-        v = ask(f"    {f} [{cur_txt}]: ")
+        v = ask_value(f"    {f} [{cur_txt}]: ", f)
         if v:
             vals[f] = v
     return (RowEdit(idx=iss.row_idx, **vals) if vals else None), None
@@ -134,13 +154,18 @@ def edit_issue(iss: Issue, row_view) -> tuple[RowEdit | None, MetaEdit | None]:
 def decide(req: ReviewRequest, pdf: str, img_dir: Path) -> ReviewAnswer | None:
     rows: list[RowEdit] = []
     meta: dict = {}
-    kept = skipped = 0
+    kept: list[str] = []
+    skipped = 0
     issues = req.issues
     for n, iss in enumerate(issues, 1):
         show_issue(n, len(issues), iss, row_image(pdf, iss, img_dir))
-        nums = f"1-{len(iss.suggestions)} use suggestion · " if iss.suggestions else ""
+        k = len(iss.suggestions)
+        nums = f"{'1' if k == 1 else f'1-{k}'} use suggestion · " if k else ""
         while True:
-            c = ask(MENU.format(nums=nums) + "\n  > ")
+            menu = MENU.format(nums=nums)
+            if "follows from" in iss.title:
+                menu = menu.replace("k keep as printed", "k no change needed")
+            c = ask(menu + "\n  > ")
             if c.isdigit() and 1 <= int(c) <= len(iss.suggestions):
                 s = iss.suggestions[int(c) - 1]
                 rows += s.rows
@@ -149,7 +174,7 @@ def decide(req: ReviewRequest, pdf: str, img_dir: Path) -> ReviewAnswer | None:
                 print(dim(f"  ✓ will apply: {s.label}"))
                 break
             if c == "k":
-                kept += 1
+                kept.append(iss.id)
                 break
             if c == "s":
                 skipped += 1
@@ -166,7 +191,7 @@ def decide(req: ReviewRequest, pdf: str, img_dir: Path) -> ReviewAnswer | None:
                     break
                 continue
             if c == "K":
-                kept += len(issues) - n + 1
+                kept += [i.id for i in issues[n - 1:]]
                 break
             if c == "q":
                 return None
@@ -180,7 +205,7 @@ def decide(req: ReviewRequest, pdf: str, img_dir: Path) -> ReviewAnswer | None:
         answer = ReviewAnswer(action="accept")
     else:
         answer = ReviewAnswer(action="correct", rows=rows, meta=MetaEdit(**meta) if meta else None,
-                              keep_remaining=skipped == 0)
+                              keep=kept)
     note = ask("\nOptional note for the record (Enter to skip): ")
     answer.note = note or None
     print("\n" + b("Sending: ") + json.dumps(answer.model_dump(exclude_none=True), ensure_ascii=False))
@@ -214,8 +239,16 @@ def show_result(stmt_id: str) -> None:
     print(b(f"SAVED · status {st['status']}") + f" · reconciles: {rec.get('ok')} · "
           f"{n['n']} transactions ({n['u']} corrected by you)")
     for r in rec.get("review_log", []):
-        print(dim(f"  review round {r['round']}: {r.get('action')} "
-                  f"{r.get('rows', '')} {r.get('note') or ''}"))
+        what = []
+        if r.get("rows"):
+            what.append(f"{r['rows']} row(s) corrected")
+        if r.get("meta"):
+            what.append(", ".join(m.replace("_", " ") for m in r["meta"]) + " corrected")
+        if r.get("kept"):
+            what.append(f"{r['kept']} kept as printed")
+        print(dim(f"  review round {r['round']}: {r.get('action')}"
+                  + (" — " + "; ".join(what) if what else "")
+                  + (f" · note: {r['note']}" if r.get("note") else "")))
     print("Top categories: " + ", ".join(f"{c['name']} {c['n']}" for c in cats))
     for a in anoms:
         print(f"  ⚑ {a['type']}: {a['explanation']}")

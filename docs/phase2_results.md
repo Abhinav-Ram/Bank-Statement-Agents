@@ -32,3 +32,25 @@ Human review is covered by tests only, as user-led testing is pending:
 - batch mode storing the review.
 
 All 182 tests pass offline.
+
+## Review testing (2026-11-25)
+Claude ran all six cases in `docs/review_testing.md` against `data/review_cases/ANSWERS.md`.
+
+Cases 1–3 matched the answer key: right row, right first suggestion, reconciled after the fix,
+and quit-then-continue worked. In cases 4–5 (AgamiAI digital and scanned) the red box was on the
+right row, the printed values matched the cards, and keep-all saved the statement.
+
+Fixed during testing (each fix has a test):
+
+| Problem found | Fix |
+|---|---|
+| A wrong correction was saved as "ok" without asking again, because keeping another card kept everything | Per-card `keep`; an edited row is never kept |
+| Typing a non-amount crashed the pause | The tool re-prompts; the pipeline returns `previous_answer_error` |
+| A follow-on card offered fixes for a row that was actually right | Follow-on cards carry no suggestions |
+| The closing-balance card had no place to look | It now points at the last row, with an image |
+| 21 cards on a statement whose PDF itself is inconsistent | The headline suggests spot-checking and keeping all |
+| A user's own wrong entry was described as "what the statement prints" | It now says "the values you entered" |
+| A scanned statement couldn't be paused (numpy floats in the checkpoint) | State is converted to plain types |
+
+Still for the user to judge: whether the wording and layout feel clear to a person seeing them
+for the first time.

@@ -26,11 +26,13 @@ from app.synthetic.render import BANKS
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--llm", action="store_true", help="send leftover merchants to the LLM")
+    ap.add_argument("--llm-only", action="store_true",
+                    help="rules off: every merchant goes to the LLM (measures the LLM alone)")
     ap.add_argument("--statements", type=int, default=12)
     args = ap.parse_args()
     s = get_settings()
     s.llm_cache_dir = s.data_dir / "cache" / "llm"
-    llm = LLMClient(s) if args.llm else None
+    llm = LLMClient(s) if (args.llm or args.llm_only) else None
     cache: dict = {}
 
     cat_total = cat_ok = 0
@@ -45,7 +47,8 @@ def main() -> None:
         rows = [Txn(date=t.date, description=t.description, debit=t.debit, credit=t.credit,
                     balance=t.balance) for t in stmt.transactions]
         out = categorize(rows, lambda ms: {m: cache[m] for m in ms if m in cache},
-                         lambda es: cache.update({m: (c, conf) for m, c, conf, _ in es}), llm)
+                         lambda es: cache.update({m: (c, conf) for m, c, conf, _ in es}), llm,
+                         use_rules=not args.llm_only)
         for a, t in zip(out, stmt.transactions, strict=True):
             cat_total += 1
             sources[a["source"]] += 1
@@ -73,7 +76,7 @@ def main() -> None:
                 per_type[a["type"]] += 1
 
     res = {
-        "llm": args.llm, "statements": args.statements,
+        "llm": "llm_only" if args.llm_only else bool(args.llm), "statements": args.statements,
         "category_accuracy": round(cat_ok / cat_total, 4), "transactions": cat_total,
         "category_sources": dict(sources),
         "top_confusions": [{"truth": a, "pred": b, "n": n} for (a, b), n in
@@ -81,9 +84,12 @@ def main() -> None:
         "anomaly": {"precision": round(tp / max(1, tp + fp), 4),
                     "missed_seeded": fn, "missed_by_type": dict(per_type), "false_flags": fp},
         "llm_usage": llm.usage if llm else None,
+        "llm_network_calls": LLMClient.network_calls, "llm_truncated": LLMClient.truncated,
+        "rate_limits": LLMClient.rate_limits,
     }
     print(json.dumps(res, indent=1))
-    out = s.data_dir / "evals" / f"{datetime.now():%Y%m%d_%H%M%S}_phase2.json"
+    tag = "_llm_only" if args.llm_only else "_llm" if args.llm else ""
+    out = s.data_dir / "evals" / f"{datetime.now():%Y%m%d_%H%M%S}_phase2{tag}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(res, indent=1))
     print(f"→ data/evals/{out.name}")

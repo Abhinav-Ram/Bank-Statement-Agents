@@ -25,7 +25,7 @@ class FakeLLM:
     def __init__(self, answers):
         self.answers, self.calls = answers, []
 
-    def chat_json(self, messages, schema):
+    def chat_json(self, messages, schema, **_):
         import json
         items = json.loads(messages[-1]["content"])
         self.calls.append([i["merchant"] for i in items])
@@ -83,3 +83,14 @@ def test_cache_entry_must_fit_direction():
     rows = [t("POS Q9W8 MYSTERY SHOP", credit=500)]
     out = categorize(rows, Cache({"MYSTERY SHOP": ("Shopping", 1.0)}).get, Cache().put, None)
     assert out[0]["category"] == "Other Income"
+
+
+def test_a_friend_settling_a_split_bill_is_a_transfer_not_a_refund():
+    from app.agents.categorize import categorize
+    from app.schemas.statement import Txn
+    rows = [Txn(date="2025-01-02", description="UPI/123456789012/PRIYA S/REFUND SPLIT",
+                credit=80000, balance=1),
+            Txn(date="2025-01-03", description="REFUND/AMZN MKTP IN/123", credit=50000,
+                balance=2)]
+    out = categorize(rows, lambda ms: {}, lambda es: None, None)
+    assert [a["category"] for a in out] == ["Transfers In", "Refunds"]

@@ -1,11 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
-// In docker the API is reachable as http://api:8080; natively, http://localhost:8080.
+// Natively the API runs on http://localhost:8080; in docker the web container reaches it via
+// host.docker.internal (set API_PROXY_TARGET).
 const target = process.env.API_PROXY_TARGET ?? "http://localhost:8080";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   server: {
     host: true,
     port: 5173,

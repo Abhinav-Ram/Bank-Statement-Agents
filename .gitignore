@@ -32,3 +32,5 @@ data/cache/
 # generated review artefacts (regenerate with scripts/make_review_cases.py / scripts/review.py)
 data/review/
 data/review_cases/
+data/qa/
+data/uploads/

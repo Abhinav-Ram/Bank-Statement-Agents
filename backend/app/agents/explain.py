@@ -11,7 +11,9 @@ from app.llm.client import LLMClient
 from app.services.anomaly import allowed_numbers, numbers_in, template_explanation
 
 SYSTEM = ("Write a one-sentence (max 20 words) plain-English explanation for each flagged bank "
-          "transaction, for the account holder. Use only the facts given; amounts in rupees (₹).")
+          "transaction, for the account holder. Use only the facts given; amounts in rupees (₹). "
+          "Say what the data shows; never guess a cause or reason that isn't in the facts "
+          "(no 'due to a bank error', 'for the same order', etc.).")
 
 
 class _Line(BaseModel):
@@ -38,7 +40,7 @@ def explain(anomalies: list[dict], rows_by_idx: dict[int, dict], llm: LLMClient 
     try:
         res = llm.chat_json([{"role": "system", "content": SYSTEM},
                              {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}],
-                            _Lines)
+                            _Lines, max_tokens=min(900, 120 + 70 * len(payload)))
     except Exception:  # noqa: BLE001 - templates stay
         return anomalies
     for line in res.items:

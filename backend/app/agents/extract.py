@@ -39,7 +39,7 @@ def extract_metadata(llm: LLMClient, head_text: str, tail_text: str) -> Statemen
     content = (f"TEXT ABOVE THE TRANSACTION TABLE:\n{head_text[:3500]}\n\n"
                f"TEXT AFTER THE LAST TRANSACTION:\n{tail_text[:1500]}")
     m = llm.chat_json([{"role": "system", "content": META_SYSTEM},
-                       {"role": "user", "content": content}], LLMMeta)
+                       {"role": "user", "content": content}], LLMMeta, max_tokens=350)
     return StatementMeta(
         bank_name=m.bank_name, account_holder=m.account_holder,
         account_masked=mask_account(m.account_number),

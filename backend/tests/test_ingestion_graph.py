@@ -17,7 +17,7 @@ class FakeLLM:
         self.usage = {"calls": 0, "cached_calls": 0, "prompt_tokens": 0, "completion_tokens": 0}
         self.seen = []
 
-    def chat_json(self, messages, schema):
+    def chat_json(self, messages, schema, **_):
         self.usage["calls"] += 1
         self.seen.append(schema.__name__)
         if schema is LLMMeta:
@@ -36,7 +36,7 @@ def meta_for(truth) -> LLMMeta:
 def test_clean_statement_is_ok_with_one_llm_call(monkeypatch):
     truth = SYN[0]
     fake = FakeLLM(meta_for(truth))
-    monkeypatch.setattr(ingestion, "_llm", lambda: fake)
+    monkeypatch.setattr(ingestion, "_llm", lambda *_: fake)
     st = ingestion.run_ingestion(str(truth.pdf))
     assert st["status"] == "ok" and st["report"]["ok"]
     assert fake.seen == ["LLMMeta"]  # nothing ambiguous → no row calls
@@ -46,21 +46,31 @@ def test_clean_statement_is_ok_with_one_llm_call(monkeypatch):
 
 
 def test_wrong_closing_balance_goes_to_review_without_row_retries(monkeypatch):
-    truth = SYN[0]
+    truth = next(t for t in SYN if t.id.startswith("northwind"))  # no C/F row printed
     meta = meta_for(truth)
     meta.closing_balance += 1
     fake = FakeLLM(meta)
-    monkeypatch.setattr(ingestion, "_llm", lambda: fake)
+    monkeypatch.setattr(ingestion, "_llm", lambda *_: fake)
     st = ingestion.run_ingestion(str(truth.pdf))
     assert st["status"] == "awaiting_review" and st["report"]["totals_ok"] is False
     assert st["attempts"] == 0
+
+
+def test_printed_cf_row_corrects_a_misread_closing_balance(monkeypatch):
+    truth = next(t for t in SYN if t.id.startswith("coral_01"))  # prints "C/F 372.67 Dr"
+    meta = meta_for(truth)
+    meta.closing_balance = None  # what Groq returned in Phase 4b
+    monkeypatch.setattr(ingestion, "_llm", lambda *_: FakeLLM(meta))
+    st = ingestion.run_ingestion(str(truth.pdf))
+    assert st["meta"]["closing_balance"] == truth.meta.closing_balance == -37267
+    assert st["status"] == "ok" and st["report"]["totals_ok"] is True
 
 
 def test_scan_routes_to_needs_ocr(monkeypatch):
     scans = iter_dataset("synthetic_scan", get_settings().data_dir)
     if not scans:
         pytest.skip("no scans")
-    monkeypatch.setattr(ingestion, "_llm", lambda: pytest.fail("LLM must not be called"))
+    monkeypatch.setattr(ingestion, "_llm", lambda *_: pytest.fail("LLM must not be called"))
     st = ingestion.run_ingestion(str(scans[0].pdf), ocr_engine=None)
     assert st["status"] == "needs_ocr"
 
@@ -82,7 +92,7 @@ def test_retry_loop_is_capped(monkeypatch):
 
     fake = FakeLLM(meta_for(truth), bad_rows)
     monkeypatch.setattr(ingestion, "parse_pdf", parse_with_bad_row)
-    monkeypatch.setattr(ingestion, "_llm", lambda: fake)
+    monkeypatch.setattr(ingestion, "_llm", lambda *_: fake)
     st = ingestion.run_ingestion(str(truth.pdf))
     assert st["status"] == "awaiting_review"
     assert st["attempts"] == ingestion.MAX_RETRIES

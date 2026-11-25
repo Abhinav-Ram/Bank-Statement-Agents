@@ -11,7 +11,7 @@ import hashlib
 import json
 import time
 from dataclasses import dataclass
-from typing import Any, TypeVar
+from typing import Any, ClassVar, TypeVar
 
 import httpx
 from pydantic import BaseModel
@@ -62,6 +62,10 @@ def strict_json_schema(model: type[BaseModel]) -> dict:
 
 
 class LLMClient:
+    network_calls = 0  # process-wide: real API calls (cache hits excluded)
+    truncated = 0  # replies cut off by max_tokens
+    rate_limits: ClassVar[dict] = {}  # last x-ratelimit-* headers seen
+
     def __init__(self, settings: Settings | None = None):
         self.s = settings or get_settings()
         headers = {"Content-Type": "application/json"}
@@ -87,6 +91,10 @@ class LLMClient:
         return r
 
     def _chat_body(self, messages: list[dict], **extra: Any) -> dict[str, Any]:
+        if self.s.llm_mask_numbers:  # nothing account-like leaves the machine
+            from app.llm.mask import mask_numbers
+            messages = [{**m, "content": mask_numbers(m["content"])}
+                        if isinstance(m.get("content"), str) else m for m in messages]
         body: dict[str, Any] = {
             "model": self.s.chat_model,
             "messages": messages,
@@ -111,7 +119,16 @@ class LLMClient:
             return json.loads(cache.read_text())["content"]
         if self.s.llm_cache_only:
             raise LLMError("cache miss (cache-only mode)")
-        data = self._request("POST", "/chat/completions", body).json()
+        budget = self.s.llm_max_requests
+        if budget is not None and LLMClient.network_calls >= budget:
+            raise LLMError(f"request budget reached ({budget} calls this process)")
+        LLMClient.network_calls += 1
+        r = self._request("POST", "/chat/completions", body)
+        LLMClient.rate_limits = {k: v for k, v in r.headers.items()
+                                 if k.lower().startswith("x-ratelimit")}
+        data = r.json()
+        if (data["choices"][0].get("finish_reason") == "length"):
+            LLMClient.truncated += 1
         content = data["choices"][0]["message"].get("content") or ""
         u = data.get("usage") or {}
         self.usage["calls"] += 1
@@ -128,21 +145,26 @@ class LLMClient:
         h = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
         return self.s.llm_cache_dir / h[:2] / f"{h}.json"
 
-    def chat_json(self, messages: list[dict], schema: type[T]) -> T:
+    def chat_json(self, messages: list[dict], schema: type[T],
+                  max_tokens: int | None = None) -> T:
         """Schema-constrained output. Uses strict json_schema; if the model doesn't support it,
-        falls back to json_object mode with the schema in the system prompt."""
+        falls back to json_object mode with the schema in the system prompt. `max_tokens` caps
+        this call (Groq reserves it against the per-minute output budget up front, so small
+        outputs should ask for little)."""
+        extra = {"max_tokens": max_tokens} if max_tokens else {}
         if self.json_schema_supported:
             rf = {"type": "json_schema", "json_schema": {
                 "name": schema.__name__, "schema": strict_json_schema(schema), "strict": True}}
             try:
-                return schema.model_validate_json(_strip_fences(self.chat(messages, response_format=rf)))
+                return schema.model_validate_json(_strip_fences(
+                    self.chat(messages, response_format=rf, **extra)))
             except LLMError as e:
                 if e.status != 400 or "response_format" not in str(e) and "json_schema" not in str(e):
                     raise
                 self.json_schema_supported = False
         sys_msg = {"role": "system", "content": "Respond with a single JSON object matching this "
                    f"JSON Schema, and nothing else:\n{json.dumps(schema.model_json_schema())}"}
-        raw = self.chat([sys_msg, *messages], response_format={"type": "json_object"})
+        raw = self.chat([sys_msg, *messages], response_format={"type": "json_object"}, **extra)
         return schema.model_validate_json(_strip_fences(raw))
 
     def chat_stream_stats(self, messages: list[dict], max_tokens: int = 256) -> StreamStats:

@@ -1,6 +1,8 @@
-# Postgres+pgvector, API and web run in Docker. The chat LLM is GroqCloud (remote, from .env);
-# OCR runs natively on macOS (Apple Vision isn't available in containers). Memory limits
-# keep the stack small on an 8 GB Mac.
+# Postgres+pgvector and the web UI run in Docker. The API runs NATIVELY on the Mac
+# (cd backend && uv run uvicorn app.main:app --port 8080) because Apple Vision OCR needs macOS;
+# the web container proxies to it via host.docker.internal. `--profile docker-api` starts a
+# containerised API instead (digital PDFs only: no Apple Vision in Linux).
+# The chat LLM is GroqCloud (remote, from .env). Memory limits keep the stack small on 8 GB.
 name: bank-agents
 
 services:
@@ -23,6 +25,7 @@ services:
     mem_limit: 384m
 
   api:
+    profiles: ["docker-api"]
     build: ./backend
     env_file:
       - path: .env
@@ -41,11 +44,11 @@ services:
   web:
     build: ./frontend
     environment:
-      API_PROXY_TARGET: http://api:8080
+      API_PROXY_TARGET: ${API_PROXY_TARGET:-http://host.docker.internal:8080}
+    extra_hosts: ["host.docker.internal:host-gateway"]
     ports: ["5173:5173"]
     volumes:
       - ./frontend/src:/web/src
-    depends_on: [api]
     mem_limit: 384m
 
 volumes:

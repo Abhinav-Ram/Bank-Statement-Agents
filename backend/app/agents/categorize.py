@@ -62,7 +62,9 @@ def normalise_merchant(description: str) -> str:
     parts = [p for p in re.split(r"[-/]", name) if p.strip()]
     parts = [p.strip() for p in parts if not _DROP.match(p.strip().upper())]
     name = (parts[0] if parts else name).strip(" .-")
-    name = re.sub(r"\s+(IN|INDIA|PVT|PRIVATE|LTD|LIMITED|LLP)\.?$", "", name.upper()).strip()
+    stripped = re.sub(r"\s+(IN|INDIA|PVT|PRIVATE|LTD|LIMITED|LLP)\.?$", "", name.upper()).strip()
+    # keep the suffix when removing it would leave a dangling word ("LIC OF INDIA" → "LIC OF")
+    name = name.upper() if re.search(r"\s(OF|AND|&)$", stripped) else stripped
     return name[:60] or "UNKNOWN"
 
 
@@ -71,6 +73,9 @@ _RULES: list[tuple[str, str]] = [  # (regex on narration + merchant, category); 
     (r"\b(CHGS|CHARGES|CHARGE|MIN BAL)\b", "Fees/Charges"),
     (r"\bINTEREST\b", "Interest"),
     (r"\bDIVIDEND\b", "Other Income"),
+    # a friend settling a shared bill ("UPI/../PRIYA S/REFUND SPLIT") is a transfer, not a
+    # merchant refund; must come before the REFUND rule
+    (r"\bREFUND SPLIT\b|\bSPLIT\b", "Transfers In"),
     (r"\b(REFUND|REVERSAL)\b", "Refunds"),
     (r"\bSALARY\b|\bPAYROLL\b", "Salary"),
     (r"\b(FREELANCE|UPWORK|TOPTAL|FIVERR)\b", "Business/Freelance"),
@@ -142,7 +147,7 @@ def llm_categories(llm: LLMClient, items: list[dict]) -> dict[str, tuple[str, fl
         batch = items[k:k + BATCH]
         res = llm.chat_json([{"role": "system", "content": SYSTEM},
                              {"role": "user", "content": json.dumps(batch, ensure_ascii=False)}],
-                            LLMCategories)
+                            LLMCategories, max_tokens=min(900, 80 + 32 * len(batch)))
         allowed = {b["merchant"]: b["direction"] for b in batch}
         for p in res.items:
             d = allowed.get(p.merchant)
@@ -154,8 +159,9 @@ def llm_categories(llm: LLMClient, items: list[dict]) -> dict[str, tuple[str, fl
 # ------------------------------------------------------------------ orchestration
 def categorize(rows: list[Txn], cache_get: Callable[[list[str]], dict[str, tuple[str, float]]],
                cache_put: Callable[[list[tuple[str, str, float, str]]], None],
-               llm: LLMClient | None) -> list[dict]:
-    """Returns one assignment per row: {idx, merchant, category, confidence, source}."""
+               llm: LLMClient | None, use_rules: bool = True) -> list[dict]:
+    """Returns one assignment per row: {idx, merchant, category, confidence, source}.
+    use_rules=False sends every merchant to the cache / LLM (eval: LLM-only accuracy)."""
     merchants = [normalise_merchant(t.description) for t in rows]
     out: list[dict] = []
     leftovers: dict[tuple[str, str], list[int]] = {}
@@ -164,7 +170,7 @@ def categorize(rows: list[Txn], cache_get: Callable[[list[str]], dict[str, tuple
             out.append({"idx": i, "merchant": m, "category": None, "confidence": None,
                         "source": "zero_amount"})
             continue
-        r = rule_category(t, m)
+        r = rule_category(t, m) if use_rules else None
         out.append({"idx": i, "merchant": m, "category": r[0] if r else None,
                     "confidence": r[1] if r else None, "source": "rule" if r else None})
         if r is None:

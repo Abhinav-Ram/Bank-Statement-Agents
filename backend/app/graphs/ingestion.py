@@ -4,7 +4,7 @@
                                                              ├─ human_review (interrupt) → validate
                                                              │   (ReviewRequest out, ReviewAnswer in)
                                                              └─ finalize
-    finalize → [stages=full] persist → categorize → anomaly → summarize → END
+    finalize → [stages=full] persist → categorize → anomaly → summarize → index → END
 
 stages="extract" (Phase 1 evals) stops after finalize and writes nothing.
 review_mode="interrupt" pauses at human_review until resume_ingestion(); "skip" records
@@ -38,6 +38,8 @@ class IngestState(TypedDict, total=False):
     stages: str  # extract | full
     review_mode: str  # interrupt | skip
     reviewed: bool  # a reviewer accepted the statement as-is
+    duplicate_of: str | None  # this upload is a copy of a statement already saved
+    dedupe: dict  # replaced statements, rows already stored, statements to re-index
     kept_issues: list[str]  # issue ids the reviewer chose to keep as printed
     review_error: str | None  # the last answer couldn't be used; shown in the next request
     review_log: list[dict]  # each review round: action, how many edits, note
@@ -47,6 +49,7 @@ class IngestState(TypedDict, total=False):
     summary: dict
     ocr_engine: str | None
     meta_override: dict | None  # evals: known metadata → skip the LLM metadata call
+    cloud_llm: bool  # False: no Groq calls for this statement (API per-upload switch)
     layouts: list[dict]
     source_type: str  # digital | scanned | mixed
     rows: list[dict]
@@ -62,8 +65,13 @@ class IngestState(TypedDict, total=False):
     events: list[dict]  # node timings / notes, streamed to the UI in Phase 4
 
 
-def _llm() -> LLMClient:
-    return LLMClient(get_settings())
+def _llm(state: IngestState | None = None) -> LLMClient:
+    """The LLM for this run. cloud_llm=False (per upload) → a client that refuses every call,
+    so each step takes its no-LLM path."""
+    s = get_settings()
+    if state is not None and state.get("cloud_llm") is False and not s.llm_disabled:
+        s = s.model_copy(update={"llm_disabled": True})
+    return LLMClient(s)
 
 
 def _event(state: IngestState, node: str, t0: float, **info: Any) -> list[dict]:
@@ -108,7 +116,7 @@ def parse(state: IngestState) -> IngestState:
 
 def metadata(state: IngestState) -> IngestState:
     t0 = time.perf_counter()
-    llm = _llm()
+    llm = _llm(state)
     if state.get("meta_override"):
         return {"meta": state["meta_override"],
                 "events": _event(state, "extract_metadata", t0, source="override")}
@@ -121,6 +129,14 @@ def metadata(state: IngestState) -> IngestState:
     # it is authoritative for the opening balance.
     if state.get("opening_marker") is not None:
         meta.opening_balance = state["opening_marker"]
+    from app.parsing.digital import closing_marker
+    cf = closing_marker(state.get("tail_text", ""))
+    if cf is not None:  # a printed C/F row is read deterministically, like B/F
+        meta.closing_balance = cf
+    dates = sorted(r["date"] for r in state["rows"] if r.get("date"))
+    if dates:  # without the LLM (or if it missed them), the period is what the rows cover
+        meta.period_start = meta.period_start or dates[0]
+        meta.period_end = meta.period_end or dates[-1]
     return {"meta": meta.model_dump(), **_usage(llm, state),
             "events": _event(state, "extract_metadata", t0, error=err)}
 
@@ -131,7 +147,7 @@ def repair_ambiguous(state: IngestState) -> IngestState:
     idx = [i for i, t in enumerate(rows) if t.ambiguous]
     if not idx:
         return {"events": _event(state, "repair_ambiguous", t0, rows=0)}
-    llm = _llm()
+    llm = _llm(state)
     rows = _repair(llm, rows, idx, errors=None)
     return {"rows": _dump(rows), **_usage(llm, state),
             "events": _event(state, "repair_ambiguous", t0, rows=len(idx))}
@@ -159,7 +175,7 @@ def retry(state: IngestState) -> IngestState:
     ocr_idx = [i for i in idx if rows[i].source == "ocr" and not rows[i].ambiguous]
     llm_idx = [i for i in idx if i not in ocr_idx]
     reread = _reread_ocr(state, rows, ocr_idx) if ocr_idx else {}
-    llm = _llm()
+    llm = _llm(state)
     if llm_idx:
         errs = [f"row {b['idx']}: balance should be {b['expected'] / 100:.2f} if the amount is "
                 f"right, printed {b['printed'] / 100:.2f}"
@@ -311,14 +327,22 @@ def persist(state: IngestState) -> IngestState:
     t0 = time.perf_counter()
     with connect() as conn:
         migrate(conn)
-        ids = save_statement(conn, state["stmt_id"], state["pdf"], StatementMeta(**state["meta"]),
-                             _rows(state), state["status"], state.get("source_type", "digital"),
-                             state["report"])
-    return {"txn_ids": ids, "events": _event(state, "persist", t0, rows=len(ids))}
+        ids, info = save_statement(conn, state["stmt_id"], state["pdf"],
+                                   StatementMeta(**state["meta"]), _rows(state), state["status"],
+                                   state.get("source_type", "digital"), state["report"])
+    if info["duplicate_of"]:  # a scan of a statement already saved digitally: keep that one
+        return {"status": "duplicate", "duplicate_of": info["duplicate_of"], "txn_ids": [],
+                "dedupe": info, "events": _event(state, "persist", t0, duplicate_of=info[
+                    "duplicate_of"])}
+    return {"txn_ids": ids, "dedupe": info,
+            "events": _event(state, "persist", t0, rows=len(ids),
+                             duplicate_rows=info["duplicate_rows"],
+                             replaced=info["replaced"] or None)}
 
 
-def _llm_or_none() -> LLMClient | None:
-    return None if get_settings().llm_disabled else _llm()
+def _llm_or_none(state: IngestState | None = None) -> LLMClient | None:
+    llm = _llm(state)
+    return None if llm.s.llm_disabled else llm
 
 
 def categorize_node(state: IngestState) -> IngestState:
@@ -327,7 +351,7 @@ def categorize_node(state: IngestState) -> IngestState:
     from app.db.repo import cache_lookup, cache_put, set_categories
 
     t0 = time.perf_counter()
-    llm = _llm_or_none()
+    llm = _llm_or_none(state)
     with connect() as conn:
         out = categorize(_rows(state), lambda ms: cache_lookup(conn, ms),
                          lambda es: cache_put(conn, es), llm)
@@ -357,7 +381,7 @@ def anomaly_node(state: IngestState) -> IngestState:
     rows = _enriched(state)
     meta = StatementMeta(**state["meta"])
     first = min((r["date"] for r in rows if r["date"]), default=None)
-    llm = _llm_or_none()
+    llm = _llm_or_none(state)
     with connect() as conn:
         history = earlier_merchants(conn, meta.account_masked, first, state["stmt_id"])
         found = explain(detect(rows, history), {r["idx"]: r for r in rows}, llm)
@@ -381,7 +405,7 @@ def summarize_node(state: IngestState) -> IngestState:
                 "amount": by_idx[a["idx"]]["debit"] or by_idx[a["idx"]]["credit"]}
                for a in state.get("anomalies", [])]
     fs = fact_sheet(rows, flagged, state["meta"])
-    llm = _llm_or_none()
+    llm = _llm_or_none(state)
     text, source = narrate(fs, llm)
     period = f"{state['meta'].get('period_start')} to {state['meta'].get('period_end')}"
     with connect() as conn:
@@ -389,6 +413,26 @@ def summarize_node(state: IngestState) -> IngestState:
     usage = _usage(llm, state) if llm else {}
     return {"summary": {"fact_sheet": fs, "narrative": text, "source": source}, **usage,
             "events": _event(state, "summarize", t0, source=source)}
+
+
+def index_node(state: IngestState) -> IngestState:
+    """Chunks → embeddings → pgvector (Phase 3). A failure here doesn't fail the statement:
+    it is saved and categorised; the index can be rebuilt with scripts/index_existing.py."""
+    from app.db import connect
+    from app.retrieval.chunks import index_statement
+    from app.retrieval.embed import get_embedder
+
+    t0 = time.perf_counter()
+    try:
+        with connect() as conn:
+            emb = get_embedder()
+            counts = index_statement(conn, state["stmt_id"], emb)
+            for other in (state.get("dedupe") or {}).get("reindex", []):
+                index_statement(conn, other, emb)  # its copies became originals
+        return {"events": _event(state, "index", t0, chunks=counts)}
+    except Exception as e:  # noqa: BLE001 - index is rebuildable; never lose the statement
+        log.warning("indexing %s failed: %s", state["stmt_id"], e)
+        return {"events": _event(state, "index", t0, error=f"{type(e).__name__}: {e}"[:200])}
 
 
 def _repair(llm: LLMClient, rows: list[Txn], idx: list[int], errors: list[str] | None) -> list[Txn]:
@@ -425,6 +469,10 @@ def after_finalize(state: IngestState) -> str:
     return "persist"
 
 
+def after_persist(state: IngestState) -> str:
+    return END if state.get("status") == "duplicate" else "categorize"
+
+
 def build_graph(checkpointer=None):
     g = StateGraph(IngestState)
     g.add_node("parse", parse)
@@ -438,6 +486,7 @@ def build_graph(checkpointer=None):
     g.add_node("categorize", categorize_node)
     g.add_node("anomaly", anomaly_node)
     g.add_node("summarize", summarize_node)
+    g.add_node("index", index_node)
     g.add_edge(START, "parse")
     g.add_conditional_edges("parse", after_parse, ["extract_metadata", "finalize"])
     g.add_edge("extract_metadata", "repair_ambiguous")
@@ -446,10 +495,11 @@ def build_graph(checkpointer=None):
     g.add_edge("retry", "validate")
     g.add_edge("human_review", "validate")  # always re-check; a reviewed statement then finalizes
     g.add_conditional_edges("finalize", after_finalize, ["persist", END])
-    g.add_edge("persist", "categorize")
+    g.add_conditional_edges("persist", after_persist, ["categorize", END])
     g.add_edge("categorize", "anomaly")
     g.add_edge("anomaly", "summarize")
-    g.add_edge("summarize", END)
+    g.add_edge("summarize", "index")
+    g.add_edge("index", END)
     return g.compile(checkpointer=checkpointer)
 
 

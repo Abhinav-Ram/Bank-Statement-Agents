@@ -10,18 +10,26 @@ transactions. Full plan: `PLAN.md`.
   for all agents. (Llama 4 Scout was requested but is not served on this Groq account.)
 - Everything about the LLM is in `.env` / `backend/app/config.py` (`LLM_*`, `CHAT_MODEL`,
   `LLM_EXTRA_BODY`). Swapping model or provider (e.g. back to local oMLX) = edit `.env`, no code.
-- **Groq has no embeddings API.** Embeddings use a separate `EMBED_*` endpoint (decided in Phase 3).
+- **Groq has no embeddings API.** Embeddings run **locally**: fastembed (ONNX, CPU)
+  `BAAI/bge-small-en-v1.5`, 384-dim, model cached in `data/cache/embed/` (`EMBED_PROVIDER=local`;
+  `openai` = any OpenAI-compatible /embeddings). Statement text never leaves the machine to be
+  indexed. Tests use a fake embedder (`tests/conftest.py`).
 - **Rate limits (free tier, per model):** 1000 requests/day, 8000 tokens/min, and for Qwen ~1000
   OUTPUT tokens/min where `max_tokens` is counted up front (so `LLM_MAX_TOKENS` < 1000). ≈ one
   20-row extraction chunk per minute. The client retries 429/5xx with Retry-After. Keep LLM calls
   sequential, prompts compact, and cache LLM responses in evals.
-- Machine: 8 GB Apple Silicon Mac. OCR runs natively (Apple Vision); Postgres, API, web run in
-  docker-compose with small memory caps.
+- Machine: 8 GB Apple Silicon Mac. OCR runs natively (Apple Vision), so the **API runs
+  natively**; Postgres and web run in docker-compose (`--profile docker-api` = containerised API,
+  digital PDFs only).
+- **Cloud LLM default ON** for API uploads/chat (`CLOUD_LLM_DEFAULT`, per-request
+  `use_cloud_llm`). The LLM client masks 8+ digit runs / card numbers before every call
+  (`app/llm/mask.py`); payee names are not masked → real statements: `use_cloud_llm=false`.
 - Do not add Ollama.
 
 ## Commands
 ```bash
-docker compose up -d --build                 # db :5433 (host), api :8080, web :5173
+docker compose up -d                         # db :5433 (host), web :5173 (proxies to the native API)
+cd backend && uv run uvicorn app.main:app --port 8080   # API runs NATIVELY (Apple Vision OCR)
 curl localhost:8080/health                   # db + llm status
 cd backend && uv sync --all-groups           # local dev env
 uv run pytest -q                             # tests (offline; no API calls)
@@ -32,12 +40,18 @@ uv run python -m evals.extraction --mode pipeline --no-llm --limit 10   # pipeli
 uv run python -m evals.extraction --mode pipeline --limit 10   # pipeline incl. LLM (uses free-tier quota)
 uv run python -m evals.extraction --mode llm_rows --model <id> # model bake-off sample
 uv run python -m evals.phase2                         # category accuracy + anomaly P/R (no Groq)
+uv run python -m evals.qa [--rebuild] [--show]       # golden Q&A: sql_only vs rag_only vs routed (no Groq)
+uv run python scripts/ask.py "question" [--mode rag_only] [--allow-groq]   # Q&A in the terminal; no args = chat
+uv run python scripts/index_existing.py               # (re)build the retrieval index for saved statements
+uv run python scripts/dedupe_existing.py [--apply]    # remove/mark duplicates saved before dedupe existed
 uv run python scripts/make_review_cases.py            # tampered statements + answer key -> data/review_cases/
 uv run python scripts/review.py <pdf> | --dataset <name> --index N   # terminal review (no Groq); docs/review_testing.md
-# Groq-using evals are batched into Phase 4b (PLAN.md); before that use --no-llm / rules only
+uv run python -m evals.suite_4b [--smoke]            # the LLM-inclusive eval (~90 Groq calls, ~12 min, cached)
 uv run python -m evals.extraction --mode parser --ocr-engine vision --datasets synthetic_scan,agami_scanned_t1,agami_scanned_t2 --limit 10
 ./scripts/download_agami.sh                  # AgamiAI dataset (1.4 GB) -> data/agami/
 cd frontend && npm run dev                   # web outside docker (proxies /api -> :8080)
+cd frontend && npm run gen:api               # regenerate src/api/schema.d.ts from the running API
+cd backend && uv run python scripts/make_examples.py   # one-click example statements -> data/demo/
 ```
 
 ## Data
@@ -83,6 +97,10 @@ cd frontend && npm run dev                   # web outside docker (proxies /api 
   Results in `data/evals/`; LLM responses cached in `data/cache/llm/` (git-ignored).
 - `backend/app/db/` — `schema.sql` (idempotent, applied by `migrate()`), `repo.py` (statements,
   transactions, merchant cache — a user correction always wins, anomalies, summaries).
+  **No double counting**: `save_statement` fingerprints rows per account (date, debit, credit,
+  balance); the same statement as another file replaces the old copy (digital kept over a scan →
+  status `duplicate`), overlapping rows get `transactions.duplicate_of`. Every reader must skip
+  `duplicate_of IS NOT NULL` (tools do via `_where`; free SQL via the `transactions_unique` view).
 - Phase 2 agents/services: `agents/categorize.py` (merchant normalisation → rules → cache → LLM for
   leftover merchants only, enum + confidence), `services/anomaly.py` (rule-based: duplicate,
   large debit, new recurring, fee spike), `agents/explain.py` (one-line LLM explanations,
@@ -92,8 +110,25 @@ cd frontend && npm run dev                   # web outside docker (proxies /api 
   `services/review.py`: ReviewRequest (plain-English issue cards, ₹ text, context rows, PDF
   location, suggested fixes) out / ReviewAnswer (accept | correct, rupees as typed) in — the
   UI contract for the review screen.
-- `backend/app/{api,retrieval,tools}/` — filled phase by phase.
+- Phase 3: `retrieval/embed.py` (local/remote/fake embedder), `retrieval/chunks.py` (chunk kinds
+  txn | month_summary | category_summary | anomaly | narrative; bank-abbreviation aliases;
+  `index` node at the end of graph A), `retrieval/hybrid.py` (vector + full-text + trigram, same
+  filters, RRF k=60, light rerank), `tools/sql_tools.py` (pre-built parameterised tools →
+  ToolResult with ids + numbers), `tools/sql_guard.py` (sqlglot validator + `bank_ro` read-only
+  role + READ ONLY txn + timeout), `agents/query.py` (LLM plan with path derived from content,
+  rule router fallback, answer with id/number checks, template fallback), `graphs/query.py`
+  (graph B: route → act → answer; history in checkpointed state; modes routed|sql_only|rag_only).
+- Phase 4 `backend/app/api/`: `jobs.py` (Runtime: psycopg pool + PostgresSaver + compiled graphs +
+  1 worker thread; `start`/`resume`/`run` stream graph updates into `ingest_events`; `recover` at
+  startup), `statements.py` (upload, list, detail, SSE events with Last-Event-ID replay, review,
+  resume, transactions, page PNG, insights, delete, PATCH category), `chat.py` (POST /chat SSE:
+  thread → route → act → answer; GET /evals). Tables `jobs`, `ingest_events`. Spec `docs/phase4.md`.
 - `backend/app/schemas/taxonomy.py` — fixed category taxonomy + anomaly types.
+- `frontend/` (Phase 5): React 18 + Vite + TS, Tailwind v4 + DaisyUI 5 (themes corporate/dark),
+  React Router, TanStack Query, Recharts 3. `src/api/` (client + generated OpenAPI types),
+  `src/lib/useJobEvents.ts` (progress SSE; closes on the server's `end` event),
+  `src/pages/` (Upload, Statements, Statement → Overview/Transactions/Review/Timeline, Chat,
+  Evals), `src/components/PageCrop.tsx` (page image + bbox highlight). Docker `web` serves it.
 - `db/init.sql` — extensions only; tables live in `backend/app/db/schema.sql`. Local Postgres
   is exposed on host port **5433** (a Homebrew Postgres owns 5432 on this Mac).
 
@@ -111,7 +146,11 @@ cd frontend && npm run dev                   # web outside docker (proxies /api 
 ## Guardrails
 - Tests first for guardrails: reconciliation, schema validation, table reconstruction,
   SQL validator, anomaly rules, interrupt/resume.
-- Free-form SQL (later): SELECT-only, table allowlist, read-only role, validator.
+- Free-form SQL (fallback only): SELECT-only, table allowlist, function denylist, forced LIMIT,
+  `bank_ro` role (SELECT on 5 tables), READ ONLY transaction, statement_timeout. Tests in
+  `tests/test_sql_guard.py`.
+- Q&A answers: numbers must appear in the evidence (one regeneration, then template); cited ids
+  must be in the evidence. Numbers are computed by the SQL tools, never the LLM.
 - `.env` holds API keys: git-ignored; never print or commit keys.
 
 ## Working method
@@ -120,4 +159,4 @@ One phase at a time: short spec → guardrail tests → implementation → user 
 
 ## Phase status
 - [x] Phase 0 — scaffold, compose, LLM check, CLAUDE.md, synthetic generator + AgamiAI data, latency baseline
-- [x] 1a digital parse/extract/validate + bake-off (`docs/phase1a.md`, results `docs/phase1a_results.md`) · [x] 1b OCR (`docs/phase1b.md`, results `docs/phase1b_results.md`; bake-off deferred) · [~] 2 code + no-LLM eval done (`docs/phase2.md`, `docs/phase2_results.md`); user-led review testing pending · [ ] 3 · [ ] 4 · [ ] 4b LLM-inclusive eval (one Groq run, see PLAN.md) · [ ] 5 · [ ] 6
+- [x] 1a digital parse/extract/validate + bake-off (`docs/phase1a.md`, results `docs/phase1a_results.md`) · [x] 1b OCR (`docs/phase1b.md`, results `docs/phase1b_results.md`; bake-off deferred) · [x] 2 persist, review, categorize, anomalies, summary (`docs/phase2.md`, results + review testing `docs/phase2_results.md`) · [x] 3 retrieval + query graph (`docs/phase3.md`, results `docs/phase3_results.md`) · [x] 4 API (`docs/phase4.md`, results `docs/phase4_results.md`) · [x] 4b LLM-inclusive eval (`evals/suite_4b.py`, results `docs/phase4b_results.md`) · [x] 5 UI (`docs/phase5.md`, results `docs/phase5_results.md`) · [ ] 6

@@ -1,37 +1,27 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import UploadPage from "./pages/Upload";
+import StatementsPage from "./pages/Statements";
 
-type Health = {
-  status: string;
-  chat_model: string;
-  db: { ok: boolean; extensions?: string[]; error?: string };
-  llm: { ok: boolean; models?: string[]; error?: string };
-};
+// charts (Recharts) only load on the pages that use them
+const StatementPage = lazy(() => import("./pages/Statement"));
+const ChatPage = lazy(() => import("./pages/Chat"));
+const EvalsPage = lazy(() => import("./pages/Evals"));
 
-// Phase 0 placeholder: shows that web -> API -> (Postgres, oMLX) is wired up.
 export default function App() {
-  const [health, setHealth] = useState<Health | null>(null);
-  const [err, setErr] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch("/api/health")
-      .then((r) => r.json())
-      .then(setHealth)
-      .catch((e) => setErr(String(e)));
-  }, []);
-
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", maxWidth: 640, margin: "40px auto", padding: "0 16px" }}>
-      <h1>Bank Statement Agents</h1>
-      <p>Phase 0 scaffold: service health.</p>
-      {err && <p style={{ color: "crimson" }}>API unreachable: {err}</p>}
-      {!health && !err && <p>Checking…</p>}
-      {health && (
-        <ul>
-          <li>API: {health.status}</li>
-          <li>Postgres: {health.db.ok ? `ok (${health.db.extensions?.join(", ")})` : health.db.error}</li>
-          <li>LLM ({health.chat_model}): {health.llm.ok ? "ok" : health.llm.error ?? "model not listed"}</li>
-        </ul>
-      )}
-    </main>
+    <Layout>
+      <Suspense fallback={<span className="loading loading-dots" />}>
+        <Routes>
+          <Route path="/" element={<UploadPage />} />
+          <Route path="/statements" element={<StatementsPage />} />
+          <Route path="/statements/:id" element={<StatementPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/evals" element={<EvalsPage />} />
+          <Route path="*" element={<div className="alert">Page not found.</div>} />
+        </Routes>
+      </Suspense>
+    </Layout>
   );
 }

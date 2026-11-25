@@ -9,7 +9,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -39,18 +39,38 @@ class Settings(BaseSettings):
     llm_cache_dir: Path | None = None
     llm_cache_only: bool = False  # evals: score only what's cached, never call the API
     llm_disabled: bool = False  # evals: no LLM at all (saves free-tier quota during testing)
+    llm_max_requests: int | None = None  # hard cap on real API calls per process (evals)
+    llm_mask_numbers: bool = True  # mask account/card/phone-like digit runs before any LLM call
+    # API default for use_cloud_llm on uploads and chat (per-request override).
+    cloud_llm_default: bool = True
 
     # --- OCR (scanned pages; runs natively on macOS) ---
     ocr_engine: str = "vision"  # vision | tesseract | rapidocr (chosen by the Phase 1b bake-off)
     ocr_secondary: str = "tesseract"  # tie-breaker, only when two primary readings disagree
 
-    # --- Embeddings (Phase 3). Groq has no embeddings API: separate endpoint/model. ---
+    # --- Embeddings (Phase 3). Groq has no embeddings API. Default: local fastembed (ONNX, CPU),
+    # so statement text never leaves the machine. "openai" = any OpenAI-compatible /embeddings.
+    # The chunks table is vector(384): a model with another dimension needs a schema change.
+    embed_provider: str = "local"  # local | openai
+    embed_model: str = "BAAI/bge-small-en-v1.5"
+    embed_dim: int = 384
     embed_base_url: str = ""
     embed_api_key: str = Field(default="", repr=False)
-    embed_model: str = ""
+    embed_cache_dir: Path | None = None  # default: <data_dir>/cache/embed
+
+    @field_validator("embed_provider", "embed_model", mode="before")
+    @classmethod
+    def _blank_means_default(cls, v: Any, info) -> Any:
+        # an empty `EMBED_MODEL=` line in .env must not wipe the default
+        return cls.model_fields[info.field_name].default if v in ("", None) else v
 
     # --- Postgres + pgvector ---
     database_url: str = "postgresql://bank:bank@localhost:5433/bank_agents"
+
+    # --- API ---
+    max_upload_mb: int = 25
+    # Optional LangSmith tracing: LANGSMITH_TRACING=true + LANGSMITH_API_KEY in .env (read by
+    # LangGraph directly). Off unless configured.
 
     # --- Paths ---
     data_dir: Path = REPO_ROOT / "data"
@@ -58,4 +78,7 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    s = Settings()
+    if s.embed_cache_dir is None:
+        s.embed_cache_dir = s.data_dir / "cache" / "embed"
+    return s

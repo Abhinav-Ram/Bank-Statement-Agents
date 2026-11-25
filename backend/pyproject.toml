@@ -13,6 +13,9 @@ dependencies = [
     "langgraph>=1.2.24",
     "pymupdf>=2.1",
     "langgraph-checkpoint-postgres>=3.2.1",
+    "fastembed>=0.9.1",
+    "sqlglot>=30.35.0",
+    "python-multipart>=0.0.34",
 ]
 
 [dependency-groups]

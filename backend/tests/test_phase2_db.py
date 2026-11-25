@@ -61,8 +61,8 @@ def test_full_pipeline_persists_categorises_flags_and_summarises(env):
                           meta_override=truth_meta(tr))
     st = out["state"]
     assert out["interrupt"] is None and st["status"] == "ok"
-    assert [e["node"] for e in st["events"]][-4:] == ["persist", "categorize", "anomaly",
-                                                      "summarize"]
+    assert [e["node"] for e in st["events"]][-5:] == ["persist", "categorize", "anomaly",
+                                                      "summarize", "index"]
     with connect() as conn:
         n = conn.execute("SELECT count(*) AS n, count(category_id) AS c FROM transactions "
                          "WHERE statement_id = %s", (out["stmt_id"],)).fetchone()

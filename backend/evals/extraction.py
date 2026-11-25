@@ -23,6 +23,7 @@ from datetime import datetime
 
 from app.config import get_settings
 from app.datasets.truth import Truth, iter_dataset
+from app.llm.client import LLMClient
 from app.parsing.digital import parse_pdf
 from app.schemas.statement import StatementMeta, Txn
 from app.services.validate import validate
@@ -206,7 +207,9 @@ def main() -> None:
     (out_dir / name).write_text(json.dumps(
         {"mode": args.mode, "model": s.chat_model if args.mode != "parser" else None,
          "ocr_engine": args.ocr_engine,
-         "provider": s.llm_provider, "aggregate": agg, "statements": results}, indent=1))
+         "provider": s.llm_provider, "aggregate": agg,
+         "llm_network_calls": LLMClient.network_calls, "llm_truncated": LLMClient.truncated,
+         "rate_limits": LLMClient.rate_limits, "statements": results}, indent=1))
     print(f"→ data/evals/{name}")
 
 

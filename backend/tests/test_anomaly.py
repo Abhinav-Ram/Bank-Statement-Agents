@@ -56,7 +56,7 @@ class FakeLLM:
     def __init__(self, text):
         self.text = text
 
-    def chat_json(self, messages, schema):
+    def chat_json(self, messages, schema, **_):
         return schema(items=[{"id": 0, "explanation": self.text}])
 
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -147,6 +148,23 @@ def parse_pdf(path: str | Path, ocr_engine: str | None = None) -> ParseResult:
     kinds = set(res.page_kinds)
     res.source_type = "mixed" if len(kinds) > 1 else (kinds.pop() if kinds else "digital")
     return res
+
+
+_CLOSING_MARKER = re.compile(
+    r"\b(?:C/F|C\.F\.|CARRIED\s+FORWARD|BALANCE\s+CARRIED\s+FORWARD)\b[\s:]*"
+    r"((?:Rs\.?|INR|₹)?\s*-?[\d,]+\.\d{2}\s*(?:Dr|Cr|DR|CR)?)", re.IGNORECASE)
+
+
+def closing_marker(tail_text: str) -> int | None:
+    """Balance on a printed carried-forward row after the table ('C/F 372.67 Dr'), in paise.
+    Read deterministically, like the B/F opening row: authoritative for the closing balance."""
+    from app.parsing.values import parse_amount
+
+    found = _CLOSING_MARKER.findall(tail_text or "")
+    a = parse_amount(found[-1]) if found else None
+    if a is None:
+        return None
+    return -a.paise if a.side == "debit" else a.paise
 
 
 def resolve_zero_amount_rows(rows: list[Txn], opening: int | None) -> None:
